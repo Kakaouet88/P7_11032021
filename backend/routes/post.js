@@ -8,7 +8,7 @@ const regex = require("../middleware/regex");
 
 router.get("/", auth, postCtrl.getAllPosts);
 router.post("/", regex.Validation, auth, postCtrl.createPost);
-router.post("/:id/comment", auth, regex.Validation postCtrl.commentPost);
+router.post("/:id/comment", auth, regex.Validation, postCtrl.commentPost);
 router.get("/:id", auth, postCtrl.getOnePost);
 router.put("/:id", regex.Validation, auth, postCtrl.modifyPost);
 router.delete("/:id", auth, postCtrl.deletePost);

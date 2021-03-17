@@ -1,7 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
-const sauceRoutes = require("./routes/post");
+const postRoutes = require("./routes/post");
 const userRoutes = require("./routes/user");
 const path = require("path");
 const { Sequelize, Op, Model, DataTypes } = require("sequelize");
@@ -45,7 +45,7 @@ app.use(bodyParser.json());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-app.use("/api/sauces", sauceRoutes);
+app.use("/api/post", postRoutes);
 app.use("/api/auth", userRoutes);
 
 module.exports = app;
