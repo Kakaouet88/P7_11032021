@@ -20,6 +20,11 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    departement: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: "Groupomania Group"
+    },
     isadmin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
