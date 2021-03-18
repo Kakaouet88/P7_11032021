@@ -3,129 +3,113 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
 exports.createPost = (req, res, next) => {
-  const post = new Post({
-    ...req.body
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
+  const userId = decodedToken.userId;
+
+  const newpost = Post.build({
+    ...req.body,
+    UserId: userId,
   });
-  post
+  newpost
     .save()
     .then(() => res.status(201).json({ message: "Post créé !" }))
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.getAllPosts = (req, res, next) => {
-  Post.findAll({ 
-    include: Comment
+  Post.findAll({
+    include: [{ model: Comment, as: "comments" }],
+  })
+    .then((post) => res.status(200).json(post))
+    .catch((error) => res.status(404).json({ error }));
+};
+
+exports.getOnePost = (req, res, next) => {
+  Post.findOne({
+    where: { id: req.params.id },
+    include: [{ model: Comment, as: "comments" }],
   })
     .then((post) => res.status(200).json(post))
     .catch((error) => res.status(404).json({ error }));
 };
 
 exports.modifyPost = (req, res, next) => {
-  const post = {...req.body};
-  // vérifier que l'utilisateur qui initie la requête est bien le créateur de la sauce et donc dispose des droits pour la supprimer
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
   const userId = decodedToken.userId;
-  if (req.body.userId === userId) {
-    // modif objet
-    Post.update(
-      { _id: req.params.id },
-      { ...post, _id: req.params.id }
-    )
-      .then(() => res.status(200).json({ message: "Post modifié !" }))
-      .catch((error) => res.status(400).json({ error }));
-  } else {
-    res
-      .status(401)
-      .json({
-        error: "Vous ne disposez pas des droits pour modifier ce post !",
-      });
-  }
+
+  Post.findOne({ where: { id: req.params.id } })
+    .then((post) => {
+      if (post.UserId === userId) {
+        // modif objet
+        Post.update(
+          { where: { id: req.params.id } },
+          {
+            title: req.body.title,
+            content: req.body.content,
+            id: req.params.id,
+            UserId: userId,
+            comments: post.comments,
+          }
+        )
+          .then(() => res.status(200).json({ message: "Post modifié !" }))
+          .catch((error) => res.status(400).json({ error }));
+      } else {
+        res.status(401).json({
+          error: "Vous ne disposez pas des droits pour modifier ce post !",
+        });
+      }
+    })
+    .catch((error) => res.status(404).json({ error: "Post non trouvé !" }));
 };
 
 exports.deletePost = (req, res, next) => {
-  Post.findAll({ where: {postId: req.params.id} })
-    .then((sauce) => {
-      // vérifier que l'utilisateur qui initie la requête est bien le créateur de la sauce et donc dispose des droits pour la supprimer
+  Post.findOne({
+    where: { id: req.params.id },
+    include: Comment,
+  })
+    .then((post) => {
+      // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
       const token = req.headers.authorization.split(" ")[1];
       const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
       const userId = decodedToken.userId;
-      if (sauce.userId === userId) {
-        const filename = sauce.imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`, () => {
-          Sauce.deleteOne({ _id: req.params.id })
-            .then(() => res.status(200).json({ message: "Sauce supprimée !" }))
-            .catch((error) => res.status(400).json({ error }));
-        });
+      const isadmin = decodedToken.isadmin;
+
+      if (post.UserId == userId || isadmin === true) {
+        Post.destroy({ where: { id: req.params.id } })
+          .then(() => res.status(200).json({ message: "Post supprimé !" }))
+          .catch((error) => res.status(400).json({ error }));
+        Comment.destroy({ where: { postId: req.params.id } })
+          .then(() =>
+            res
+              .status(200)
+              .json({ message: "Commentaires du post supprimés !" })
+          )
+          .catch((error) => res.status(400).json({ error }));
       } else {
-        res
-          .status(401)
-          .json({
-            error:
-              "Vous ne disposez pas des droits pour supprimer cette sauce !",
-          });
+        res.status(401).json({
+          error: "Vous ne disposez pas des droits pour supprimer ce post !",
+        });
       }
     })
     .catch((error) => res.status(500).json({ error }));
 };
 
-exports.voteSauce = (req, res, next) => {
-  var UID = req.body.userId;
+exports.commentPost = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
+  const userId = decodedToken.userId;
 
-  switch (req.body.like) {
-    // like
-    case 1:
-      Sauce.updateOne(
-        { _id: req.params.id },
-        { $inc: { likes: 1 }, $push: { usersLiked: UID } }
-      )
-        .then(() => res.status(200).json({ message: "Sauce likée !" }))
-        .catch((error) => res.status(400).json({ error }));
-      break;
-    // dislike
-    case -1:
-      Sauce.updateOne(
-        { _id: req.params.id },
-        { $inc: { dislikes: 1 }, $push: { usersDisliked: UID } }
-      )
-        .then(() => res.status(200).json({ message: "Sauce dislikée !" }))
-        .catch((error) => res.status(400).json({ error }));
-      break;
-    // retrait like ou dislike = if else
-    case 0:
-      Sauce.findOne({ _id: req.params.id })
-        .then((sauce) => {
-          var Liked = sauce.usersLiked;
-          // si l'user a liké
-          if (Liked.includes(UID)) {
-            Sauce.updateOne(
-              { _id: req.params.id },
-              {
-                $inc: { likes: -1 },
-                $pull: { usersLiked: UID },
-              }
-            )
-              .then(() => res.status(200).json({ message: "Like retiré !" }))
-              .catch((error) => res.status(400).json({ error }));
-          } else {
-            // si l'user avait disliké, pas besoin de préciser car la requête ne s'effectue que si un des 2 cas était true donc si le if ne l'est pas, le else l'est forcément.
-            Sauce.updateOne(
-              { _id: req.params.id },
-              {
-                $inc: { dislikes: -1 },
-                $pull: { usersDisliked: UID },
-              }
-            )
-              .then(() => res.status(200).json({ message: "Dislike retiré !" }))
-              .catch((error) => res.status(400).json({ error }));
-          }
-        })
-        .catch((error) => res.status(400).json({ error }));
-  }
-};
+  const postId = req.params.id;
 
-exports.getAllSauces = (req, res, next) => {
-  Sauce.find()
-    .then((sauces) => res.status(200).json(sauces))
+  const newcom = Comment.build({
+    PostId: postId,
+    UserId: userId,
+    content: req.body.content,
+  });
+  newcom
+    .save()
+    .then(() => res.status(200).json({ message: "Commentaire créé !" }))
     .catch((error) => res.status(400).json({ error }));
 };

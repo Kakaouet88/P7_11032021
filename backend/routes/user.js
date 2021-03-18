@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bouncer = require("express-bouncer")(120000, 1.8e6, 5);
+const auth = require("../middleware/auth");
 
 bouncer.blocked = function (req, res, next, remaining) {
   res.send(
