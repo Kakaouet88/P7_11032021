@@ -61,7 +61,7 @@ exports.modifyPost = (req, res, next) => {
         });
       }
     })
-    .catch((error) => res.status(404).json({ error: "Post non trouvé !" }));
+    .catch((error) => res.status(404).json({ error: "Post introuvable !" }));
 };
 
 exports.deletePost = (req, res, next) => {
