@@ -73,11 +73,11 @@ exports.modifyUser = (req, res, next) => {
       { where: { id: req.params.id } },
       { ...newuser, id: req.params.id }
     )
-      .then(() => res.status(200).json({ message: "Post modifié !" }))
+      .then(() => res.status(200).json({ message: "Profil modifié !" }))
       .catch((error) => res.status(400).json({ error }));
   } else {
     res.status(401).json({
-      error: "Vous ne disposez pas des droits pour modifier ce post !",
+      error: "Vous ne pouvez pas modifier un profil autre que le vôtre !",
     });
   }
 };
