@@ -8,7 +8,6 @@ const Comment = sequelize.define("Comment", {
   },
 });
 
-
 module.exports = Comment;
 
 const Post = require("./post");

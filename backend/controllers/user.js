@@ -77,11 +77,7 @@ exports.modifyUser = (req, res, next) => {
       .catch((error) => res.status(400).json({ error }));
   } else {
     res.status(401).json({
-<<<<<<< HEAD
-      error: "Vous ne pouvez pas modifier un profil autre que le vôtre !",
-=======
       error: "Vous ne pouvez pas modifier un profil qui n'est pas le vôtre !",
->>>>>>> controllers
     });
   }
 };
