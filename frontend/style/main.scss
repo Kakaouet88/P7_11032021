@@ -1,3 +1,8 @@
+body {
+  font-size: 16px;
+  margin: 0 0 50px;
+}
+
 @import "./sass/variables.scss";
 
 .color-primary {
@@ -19,18 +24,39 @@ a {
   filter: drop-shadow(3px 3px 3px #aaaaaa);
 }
 
+.shadow-top {
+  filter: drop-shadow(3px 1px 3px #cecece);
+}
+
 .dropshadow-sm {
   filter: drop-shadow(3px 3px 3px #cecece);
 }
 
-footer {
+.absolute-bottom {
   position: absolute;
   bottom: 0;
   width: 100%;
 }
 
+.sticky {
+  &-topp {
+    position: sticky;
+    top: -4px;
+    z-index: 100;
+  }
+  &-bottom {
+    position: fixed;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 100;
+    height: 50px;
+    width: 100%;
+  }
+}
+
 .nav {
-  font-size: 0.8em;
+  font-size: 0.8rem;
 }
 
 a:hover,
