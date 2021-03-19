@@ -8,5 +8,8 @@
     "sass": "sass --watch ./style/main.scss:./style/style.css"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^4.1.1"
+  }
 }

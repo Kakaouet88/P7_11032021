@@ -1,3 +1,18 @@
+@import "./sass/variables.scss";
+
+.color-primary {
+  fill: $color-primary;
+  color: $color-primary;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  color: $color-primary;
+}
+
 @import "./sass/logform";
 
 .dropshadow {
@@ -15,5 +30,11 @@ footer {
 }
 
 .nav {
-  font-size: 0.8rem;
+  font-size: 0.8em;
+}
+
+a:hover,
+input[type="submit"]:hover {
+  transform: scale(1.07);
+  transition: transform 200ms ease-in-out;
 }

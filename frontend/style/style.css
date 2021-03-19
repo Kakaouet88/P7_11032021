@@ -1,11 +1,17 @@
-/* BASIC */
-a {
-  color: #92badd;
-  display: inline-block;
-  text-decoration: none;
-  font-weight: 400;
+.color-primary {
+  fill: #40ade0;
+  color: #40ade0;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  color: #40ade0;
+}
+
+/* BASIC */
 h2 {
   text-align: center;
   font-size: 16px;
@@ -64,7 +70,7 @@ h2.active {
 input[type=button],
 input[type=submit],
 input[type=reset] {
-  background-color: #e95151;
+  background-color: #40ade0;
   border: none;
   color: white;
   padding: 15px 80px;
@@ -86,7 +92,7 @@ input[type=reset] {
 input[type=button]:hover,
 input[type=submit]:hover,
 input[type=reset]:hover {
-  background-color: #ff7171;
+  background-color: #6cc0e7;
 }
 
 input[type=button]:active,
@@ -273,7 +279,13 @@ footer {
 }
 
 .nav {
-  font-size: 0.8rem;
+  font-size: 0.8em;
+}
+
+a:hover,
+input[type=submit]:hover {
+  transform: scale(1.07);
+  transition: transform 200ms ease-in-out;
 }
 
 /*# sourceMappingURL=style.css.map */
