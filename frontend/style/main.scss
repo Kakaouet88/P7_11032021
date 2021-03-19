@@ -1,0 +1,19 @@
+@import "./sass/logform";
+
+.dropshadow {
+  filter: drop-shadow(3px 3px 3px #aaaaaa);
+}
+
+.dropshadow-sm {
+  filter: drop-shadow(3px 3px 3px #cecece);
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.nav {
+  font-size: 0.8rem;
+}

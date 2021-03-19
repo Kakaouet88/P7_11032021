@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 exports.createPost = (req, res, next) => {
   const post = new Post({
-    ...req.body
+    ...req.body,
   });
   post
     .save()
@@ -13,38 +13,33 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.getAllPosts = (req, res, next) => {
-  Post.findAll({ 
-    include: Comment
+  Post.findAll({
+    include: Comment,
   })
     .then((post) => res.status(200).json(post))
     .catch((error) => res.status(404).json({ error }));
 };
 
 exports.modifyPost = (req, res, next) => {
-  const post = {...req.body};
+  const post = { ...req.body };
   // vérifier que l'utilisateur qui initie la requête est bien le créateur de la sauce et donc dispose des droits pour la supprimer
   const token = req.headers.authorization.split(" ")[1];
   const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
   const userId = decodedToken.userId;
   if (req.body.userId === userId) {
     // modif objet
-    Post.update(
-      { _id: req.params.id },
-      { ...post, _id: req.params.id }
-    )
+    Post.update({ _id: req.params.id }, { ...post, _id: req.params.id })
       .then(() => res.status(200).json({ message: "Post modifié !" }))
       .catch((error) => res.status(400).json({ error }));
   } else {
-    res
-      .status(401)
-      .json({
-        error: "Vous ne disposez pas des droits pour modifier ce post !",
-      });
+    res.status(401).json({
+      error: "Vous ne disposez pas des droits pour modifier ce post !",
+    });
   }
 };
 
 exports.deletePost = (req, res, next) => {
-  Post.findAll({ where: {postId: req.params.id} })
+  Post.findAll({ where: { postId: req.params.id } })
     .then((sauce) => {
       // vérifier que l'utilisateur qui initie la requête est bien le créateur de la sauce et donc dispose des droits pour la supprimer
       const token = req.headers.authorization.split(" ")[1];
@@ -58,12 +53,9 @@ exports.deletePost = (req, res, next) => {
             .catch((error) => res.status(400).json({ error }));
         });
       } else {
-        res
-          .status(401)
-          .json({
-            error:
-              "Vous ne disposez pas des droits pour supprimer cette sauce !",
-          });
+        res.status(401).json({
+          error: "Vous ne disposez pas des droits pour supprimer cette sauce !",
+        });
       }
     })
     .catch((error) => res.status(500).json({ error }));
