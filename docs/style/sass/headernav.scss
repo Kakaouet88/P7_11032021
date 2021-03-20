@@ -1,0 +1,22 @@
+#header-ul li {
+  font-size: 1.2rem;
+  color: $color-primary;
+  &:hover {
+    transform: scale(1.09);
+    transition: transform 200ms ease-in-out;
+  }
+}
+
+.bi {
+  cursor: pointer;
+}
+
+a,
+.bi,
+li {
+  &:hover {
+    transform: scale(1);
+    transition: none;
+    color: darken($color: $color-primary, $amount: 10);
+  }
+}

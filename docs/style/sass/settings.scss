@@ -1,0 +1,84 @@
+.auth {
+  margin: 0 0 80px;
+}
+
+body {
+  margin: 0 0 40px;
+}
+
+html {
+  font-size: 14px;
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.dropshadow {
+  filter: drop-shadow(3px 3px 3px #aaaaaa);
+}
+
+.shadow-top {
+  filter: drop-shadow(3px 1px 3px #cecece);
+}
+
+.dropshadow-sm {
+  filter: drop-shadow(3px 3px 3px #cecece);
+}
+
+.color-primary {
+  fill: $color-primary;
+  color: $color-primary;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  color: $color-primary;
+}
+
+.nav {
+  font-size: 0.7rem;
+}
+
+.absolute-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.sticky {
+  &-topp {
+    position: sticky;
+    top: -8px;
+    z-index: 100;
+  }
+  &-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 80px;
+    width: 100%;
+    &z {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 40px;
+      width: 100%;
+    }
+  }
+}
+
+a:hover,
+input[type="submit"]:hover {
+  transform: scale(1.07);
+  transition: transform 200ms ease-in-out;
+}
