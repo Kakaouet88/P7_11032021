@@ -1,19 +1,19 @@
-const {Sequelize, DataTypes} = require("sequelize");
+const sequelize = require("../middleware/sequelize");
+const { Sequelize, DataTypes, Op, Model } = require("sequelize");
+
+const Comment = sequelize.define("Comment", {
+  content: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+});
+
+module.exports = Comment;
+
 const Post = require("./post");
 const User = require("./user");
 
-const sequelize = new Sequelize(process.env.DBNAME, process.env.DBUSER, process.env.DBPASS, {
-    host: 'localhost',
-    dialect: 'mysql'
-  });
+Comment.belongsTo(User);
+Comment.belongsTo(Post);
 
-const Comment = sequelize.define('Comment', {
-    content: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    }
-});
-Comment.belongsTo(Post, User);
 Comment.sync();
-
-module.exports = Comment;

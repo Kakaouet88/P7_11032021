@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bouncer = require("express-bouncer")(120000, 1.8e6, 5);
+const auth = require("../middleware/auth");
 
 bouncer.blocked = function (req, res, next, remaining) {
   res.send(
@@ -15,7 +16,16 @@ bouncer.blocked = function (req, res, next, remaining) {
 const userCtrl = require("../controllers/user");
 const regex = require("../middleware/regex");
 
-router.post("/signup", regex.authValidation, userCtrl.signup);
+router.get("/:id", auth, userCtrl.getOneUser);
+router.post("/signup", regex.authValidation, regex.Validation, userCtrl.signup);
 router.post("/login", regex.authValidation, bouncer.block, userCtrl.login);
+router.put(
+  "/:id",
+  auth,
+  regex.authValidation,
+  regex.Validation,
+  userCtrl.modifyUser
+);
+router.delete("/:id", auth, userCtrl.deleteUser);
 
 module.exports = router;
