@@ -57,7 +57,9 @@ const displayProductsList = async () => {
                     <label for="content"><i class="bi bi-chat-left-dots"></i></label>
                     <textarea type="text" class="form-control" id="com-content" placeholder=" wow ! "></textarea>
                   </div>
-                  <button class="btn postCom btn-com">Commenter</button>
+                  <button class="btn postCom btn-com" data-pid="${
+                    post.id
+                  }">Commenter</button>
                 </form>
               </div>
         </div>
@@ -77,7 +79,7 @@ const addComment = async () => {
 
   for (let i = 0; i < submit.length; i++) {
     submit[i].addEventListener("click", function () {
-      let postId = this.post.id;
+      let postId = this.dataset.pid;
 
       const route = "/api/posts/" + postId;
 
@@ -85,7 +87,11 @@ const addComment = async () => {
 
       let com = document.getElementById("com-content").value;
 
-      xhrpost(com, route);
+      let comObj = { content: com };
+
+      console.log(comObj);
+
+      xhrpost(comObj, route);
     });
   }
 };

@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 const postCtrl = require("../controllers/post");
 const regex = require("../middleware/regex");
 
-router.get("/", postCtrl.getAllPosts);
+router.get("/", auth, postCtrl.getAllPosts);
 router.get("/:id", auth, postCtrl.getOnePost);
 router.post("/", auth, regex.Validation, postCtrl.createPost);
 router.post("/:id", auth, regex.Validation, postCtrl.commentPost);
