@@ -25,6 +25,10 @@
   }
 }
 
+.card {
+  overflow: auto;
+}
+
 .btn-com {
   background-color: $color-primary;
   color: white;
@@ -52,6 +56,14 @@
 }
 
 .com-content {
-  font-size: 0.9rem;
+  font-size: 1rem;
   padding: 1px;
+}
+
+.postlink {
+  color: black;
+  &:hover,
+  &:visited {
+    color: black;
+  }
 }

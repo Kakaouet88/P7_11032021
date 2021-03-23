@@ -5,15 +5,27 @@
     transform: scale(1.09);
     transition: transform 200ms ease-in-out;
   }
-}
+  &.text-muted {
+    &:hover {
+      transform: scale(1);
+      transition: none;
+    }
 
-.bi {
-  cursor: pointer;
+    i {
+      cursor: default;
+      &:hover {
+        transform: scale(1);
+        transition: none;
+        color: #6c757d;
+      }
+    }
+  }
 }
 
 a,
-.bi,
-li {
+.bi-person-circle,
+.bi-pencil-square {
+  cursor: pointer;
   &:hover {
     transform: scale(1);
     transition: none;

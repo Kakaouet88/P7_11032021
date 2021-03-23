@@ -46,7 +46,7 @@ a {
 
 .absolute-bottom {
   position: absolute;
-  bottom: 0;
+  bottom: 5%;
   width: 100%;
 }
 
@@ -136,9 +136,9 @@ h2.active {
 }
 
 /* FORM TYPOGRAPHY*/
-input[type=button],
-input[type=submit],
-input[type=reset] {
+#formcontent input[type=button],
+#formcontent input[type=submit],
+#formcontent input[type=reset] {
   background-color: #40ade0;
   border: none;
   color: white;
@@ -157,25 +157,22 @@ input[type=reset] {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-
-input[type=button]:hover,
-input[type=submit]:hover,
-input[type=reset]:hover {
+#formcontent input[type=button]:hover,
+#formcontent input[type=submit]:hover,
+#formcontent input[type=reset]:hover {
   background-color: #6cc0e7;
 }
-
-input[type=button]:active,
-input[type=submit]:active,
-input[type=reset]:active {
+#formcontent input[type=button]:active,
+#formcontent input[type=submit]:active,
+#formcontent input[type=reset]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
   -ms-transform: scale(0.95);
   transform: scale(0.95);
 }
-
-input[type=text],
-input[type=email] {
+#formcontent input[type=text],
+#formcontent input[type=email] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -195,15 +192,13 @@ input[type=email] {
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-
-input[type=text]:focus,
-input[type=email]:focus {
+#formcontent input[type=text]:focus,
+#formcontent input[type=email]:focus {
   background-color: #fff;
   border-bottom: 2px solid #e95151;
 }
-
-input[type=text]:placeholder,
-input[type=email]:placeholder {
+#formcontent input[type=text]:placeholder,
+#formcontent input[type=email]:placeholder {
   color: #cccccc;
 }
 
@@ -341,14 +336,27 @@ input[type=email]:placeholder {
   transform: scale(1.09);
   transition: transform 200ms ease-in-out;
 }
-
-.bi {
-  cursor: pointer;
+#header-ul li.text-muted:hover {
+  transform: scale(1);
+  transition: none;
+}
+#header-ul li.text-muted i {
+  cursor: default;
+}
+#header-ul li.text-muted i:hover {
+  transform: scale(1);
+  transition: none;
+  color: #6c757d;
 }
 
+a,
+.bi-person-circle,
+.bi-pencil-square {
+  cursor: pointer;
+}
 a:hover,
-.bi:hover,
-li:hover {
+.bi-person-circle:hover,
+.bi-pencil-square:hover {
   transform: scale(1);
   transition: none;
   color: #2195cc;
@@ -381,6 +389,10 @@ li:hover {
   color: #2195cc;
 }
 
+.card {
+  overflow: auto;
+}
+
 .btn-com {
   background-color: #40ade0;
   color: white;
@@ -407,8 +419,87 @@ li:hover {
 }
 
 .com-content {
-  font-size: 0.9rem;
+  font-size: 1rem;
   padding: 1px;
+}
+
+.postlink {
+  color: black;
+}
+.postlink:hover, .postlink:visited {
+  color: black;
+}
+
+.com-createdat {
+  font-size: 0.7rem;
+}
+
+#newpostform input[type=button],
+#newpostform input[type=submit],
+#newpostform input[type=reset] {
+  background-color: #40ade0;
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 1rem;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px 20px 40px 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+#newpostform input[type=button]:hover,
+#newpostform input[type=submit]:hover,
+#newpostform input[type=reset]:hover {
+  background-color: #6cc0e7;
+}
+#newpostform input[type=button]:active,
+#newpostform input[type=submit]:active,
+#newpostform input[type=reset]:active {
+  -moz-transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
+#newpostform input[type=text],
+#newpostform input[type=email],
+#newpostform textarea {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  padding: 5px;
+  font-size: 1rem;
+  margin: 5px;
+  width: 100%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+#newpostform input[type=text]:focus,
+#newpostform input[type=email]:focus,
+#newpostform textarea:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #c4e6f5;
+}
+#newpostform ::placeholder {
+  color: #cccccc;
+  font-size: 0.8rem;
 }
 
 /*# sourceMappingURL=style.css.map */
