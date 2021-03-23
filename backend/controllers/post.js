@@ -1,4 +1,6 @@
-const Post = require("../models/post.js");
+const Post = require("../models/post");
+const Comment = require("../models/comment");
+const User = require("../models/user");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
@@ -19,7 +21,7 @@ exports.createPost = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
   Post.findAll({
-    include: [{ model: Comment, as: "comments" }],
+    include: [Comment, User],
   })
     .then((post) => res.status(200).json(post))
     .catch((error) => res.status(404).json({ error }));
@@ -28,7 +30,7 @@ exports.getAllPosts = (req, res, next) => {
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
-    include: [{ model: Comment, as: "comments" }],
+    include: [{ include: [Comment, User] }],
   })
     .then((post) => res.status(200).json(post))
     .catch((error) => res.status(404).json({ error }));

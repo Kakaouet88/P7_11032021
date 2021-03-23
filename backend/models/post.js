@@ -10,11 +10,6 @@ const Post = sequelize.define("Post", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  comments: {
-    type: DataTypes.TINYINT.UNSIGNED,
-    allowNull: true,
-    defaultValue: 0,
-  },
 });
 
 module.exports = Post;
@@ -23,6 +18,6 @@ const Comment = require("./comment");
 const User = require("./user");
 
 Post.belongsTo(User);
-Post.hasOne(Comment);
+Post.hasMany(Comment);
 
 Post.sync();
