@@ -52,7 +52,7 @@
 
     <div id="adminbuttons" class="animate__animated animate__fadeIn animate__slow">
       <!-- BOUTONS SUPPRIMER ET MODFIIER SI USERID = TOKEN -->
-      <div class="d-flex align-items-center justify-content-center mt-3">
+      <div class="d-flex align-items-center justify-content-center mt-4">
         <button aria-label="editer le profil" class="btn btn-com editpost mr-3"> <i class="bi bi-pencil"></i> Modifier </button>
         <button aria-label="supprimer le profil" class="btn btn-com deletepost ml-3"> <i class="bi bi-trash"></i> Supprimer </button>
       </div>
@@ -60,32 +60,25 @@
     </div>
    
 
-    <div id="post">
+    <div id="profile">
     <!-- POST MODEL -->
-    <div class="card gedf-card col-md-8 mx-auto mt-3 dropshadow-sm animate__animated animate__fadeInUp">
+    <div class="card gedf-card col-md-8 mx-auto mt-4 dropshadow-sm animate__animated animate__fadeIn">
       <div class="card-header d-flex flex-column align-items-center pl-3 p-0">
-                  <div class="mr-2 pb-2">
-                      <i class="bi bi-person-circle post-pic"></i>
-                  </div>
-                  <div class="ml-2">
-                      <div class="post-username m-0">username </div>
+                  <div class="m-2 pb-4">
+                      <i class="bi bi-person-circle profile-pic"></i>
                   </div>
       </div>
-      <div class="card-body py-2">
-        <p class="font-weight-bold">Niania pas content</p>
-          <p class="card-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
-              sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-          </p>
-          <div class="text-muted post-createdat h6">  <i class="bi bi-clock"></i> created at &nbsp;&nbsp;&nbsp;<i class="bi bi-chat-left-dots"></i> nbr posts</div>
-      </div>
-
-      <div id="post-com" class="m-0 p-0">
-
+      <div class="card-body py-3">
+        <p><span class="font-weight-bold">Nom d'utilisateur : &nbsp;&nbsp;</span>jeanmi</p>
+        <p><span class="font-weight-bold">Email : &nbsp;&nbsp;</span>jeanmidelacompta@groupomania.com</p>
+        <p><span class="font-weight-bold">Mot de passe : &nbsp;&nbsp;</span> ******</p>
       </div>
 
       <div class="card-footer">
-         
+        <div class="text-muted profile-createdat">
+          <p><i class="bi bi-clock"></i> created at</p></div>
+        <div class="text-muted profile-posts">
+          <p><i class="bi bi-chat-left-dots"></i> nbr posts</p></div>
       </div>
   </div>
   <!-- POST MODEL FIN -->
@@ -96,7 +89,7 @@
 
 
   <!-- FOOTER -->
-  <footer class="bg-light text-center mt-3">
+  <footer class="bg-light absolute-bottom text-center mt-3">
     <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2); font-size: .6rem;">
     <p class="p-1 m-0 animate__animated animate__fadeIn animate__slow">© 2021 Copyright : <a class="text-dark" href="">Groupomania Group</a></p>
   </div>

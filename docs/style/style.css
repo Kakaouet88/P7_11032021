@@ -430,6 +430,16 @@ a:hover,
   color: black;
 }
 
+.profile-pic {
+  font-size: 6rem;
+  color: #40ade0;
+  cursor: default;
+}
+
+.profile-createdat {
+  font-size: 1rem;
+}
+
 .com-createdat {
   font-size: 0.7rem;
 }
