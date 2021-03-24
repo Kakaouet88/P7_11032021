@@ -5,13 +5,9 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
 exports.createPost = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-  const userId = decodedToken.userId;
-
   const newpost = Post.build({
     ...req.body,
-    UserId: userId,
+    UserId: req.token.userId,
   });
   newpost
     .save()
@@ -37,13 +33,9 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.modifyPost = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-  const userId = decodedToken.userId;
-
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {
-      if (post.UserId === userId) {
+      if (post.UserId === req.token.userId) {
         // modif objet
         Post.update(
           { where: { id: req.params.id } },
@@ -73,12 +65,7 @@ exports.deletePost = (req, res, next) => {
   })
     .then((post) => {
       // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
-      const token = req.headers.authorization.split(" ")[1];
-      const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-      const userId = decodedToken.userId;
-      const isadmin = decodedToken.isadmin;
-
-      if (post.UserId == userId || isadmin === true) {
+      if (post.UserId == req.token.userId || req.token.isadmin === true) {
         Post.destroy({ where: { id: req.params.id } })
           .then(() => res.status(200).json({ message: "Post supprimé !" }))
           .catch((error) => res.status(400).json({ error }));
@@ -99,15 +86,11 @@ exports.deletePost = (req, res, next) => {
 };
 
 exports.commentPost = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-  const userId = decodedToken.userId;
-
   const postId = req.params.id;
 
   const newcom = Comment.build({
     PostId: postId,
-    UserId: userId,
+    UserId: req.token.userId,
     content: req.body.content,
   });
   newcom

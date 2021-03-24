@@ -37,6 +37,7 @@ exports.login = (req, res, next) => {
           }
           res.status(200).json({
             userId: user.id,
+            isadmin: user.isadmin,
             token: jwt.sign(
               { userId: user.id, isadmin: user.isadmin },
               process.env.TOKEN_KEY,
@@ -64,10 +65,7 @@ exports.getOneUser = (req, res, next) => {
 exports.modifyUser = (req, res, next) => {
   const newuser = { ...req.body };
   // vérifier que l'utilisateur qui initie la requête est bien le créateur de la sauce et donc dispose des droits pour la supprimer
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-  const userId = decodedToken.userId;
-  if (req.body.userId === userId) {
+  if (req.body.userId === req.token.userId) {
     // modif objet
     User.update(
       { where: { id: req.params.id } },
@@ -89,11 +87,7 @@ exports.deleteUser = (req, res, next) => {
   })
     .then((user) => {
       // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
-      const token = req.headers.authorization.split(" ")[1];
-      const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-      const userId = decodedToken.userId;
-      const isadmin = decodedToken.isadmin;
-      if (user.id === userId || isadmin === true) {
+      if (user.id === req.token.userId || req.token.isadmin === true) {
         Comment.destroy({ where: { userId: user.id } })
           .then(() =>
             res

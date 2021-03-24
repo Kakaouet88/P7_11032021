@@ -97,7 +97,8 @@ h2.active {
   }
 
   input[type="text"],
-  input[type="email"] {
+  input[type="email"],
+  input[type="password"] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -119,14 +120,30 @@ h2.active {
   }
 
   input[type="text"]:focus,
-  input[type="email"]:focus {
+  input[type="email"]:focus,
+  input[type="password"]:focus {
     background-color: #fff;
     border-bottom: 2px solid lighten($color: $color-primary, $amount: 30%);
   }
 
   input[type="text"]:placeholder,
-  input[type="email"]:placeholder {
+  input[type="email"]:placeholder,
+  input[type="password"]:placeholder {
     color: #cccccc;
+  }
+}
+
+.login-nav {
+  font-size: 1rem;
+}
+
+.logbtn {
+  font-size: 1.1rem;
+  padding: 10px 30px;
+  &:hover {
+    transform: scale(1.05);
+    padding: 11px 32px;
+    transition: all 0.3s ease-in-out;
   }
 }
 
@@ -170,7 +187,8 @@ h2.active {
   }
 
   input[type="text"],
-  input[type="email"] {
+  input[type="email"],
+  input[type="password"] {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -192,13 +210,15 @@ h2.active {
   }
 
   input[type="text"]:focus,
-  input[type="email"]:focus {
+  input[type="email"]:focus,
+  input[type="password"]:focus {
     background-color: #fff;
     border-bottom: 2px solid lighten($color: $color-primary, $amount: 30%);
   }
 
   input[type="text"]:placeholder,
-  input[type="email"]:placeholder {
+  input[type="email"]:placeholder,
+  input[type="password"]:placeholder {
     color: #cccccc;
   }
 }

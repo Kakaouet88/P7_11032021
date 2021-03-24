@@ -28,8 +28,8 @@ html {
 }
 
 .color-primary {
-  fill: #40ade0;
-  color: #40ade0;
+  fill: #d1515a;
+  color: #d1515a;
 }
 
 a:hover {
@@ -37,7 +37,7 @@ a:hover {
 }
 
 a {
-  color: #40ade0;
+  color: #d1515a;
 }
 
 .nav {
@@ -139,7 +139,7 @@ h2.active {
 #formcontent input[type=button],
 #formcontent input[type=submit],
 #formcontent input[type=reset] {
-  background-color: #40ade0;
+  background-color: #d1515a;
   border: none;
   color: white;
   padding: 15px 50px;
@@ -160,7 +160,7 @@ h2.active {
 #formcontent input[type=button]:hover,
 #formcontent input[type=submit]:hover,
 #formcontent input[type=reset]:hover {
-  background-color: #6cc0e7;
+  background-color: #dc7980;
 }
 #formcontent input[type=button]:active,
 #formcontent input[type=submit]:active,
@@ -172,7 +172,8 @@ h2.active {
   transform: scale(0.95);
 }
 #formcontent input[type=text],
-#formcontent input[type=email] {
+#formcontent input[type=email],
+#formcontent input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -193,19 +194,35 @@ h2.active {
   border-radius: 5px 5px 5px 5px;
 }
 #formcontent input[type=text]:focus,
-#formcontent input[type=email]:focus {
+#formcontent input[type=email]:focus,
+#formcontent input[type=password]:focus {
   background-color: #fff;
-  border-bottom: 2px solid #c4e6f5;
+  border-bottom: 2px solid #f1cacd;
 }
 #formcontent input[type=text]:placeholder,
-#formcontent input[type=email]:placeholder {
+#formcontent input[type=email]:placeholder,
+#formcontent input[type=password]:placeholder {
   color: #cccccc;
+}
+
+.login-nav {
+  font-size: 1rem;
+}
+
+.logbtn {
+  font-size: 1.1rem;
+  padding: 10px 30px;
+}
+.logbtn:hover {
+  transform: scale(1.05);
+  padding: 11px 32px;
+  transition: all 0.3s ease-in-out;
 }
 
 #logform input[type=button],
 #logform input[type=submit],
 #logform input[type=reset] {
-  background-color: #40ade0;
+  background-color: #d1515a;
   border: none;
   color: white;
   padding: 15px 50px;
@@ -226,7 +243,7 @@ h2.active {
 #logform input[type=button]:hover,
 #logform input[type=submit]:hover,
 #logform input[type=reset]:hover {
-  background-color: #6cc0e7;
+  background-color: #dc7980;
 }
 #logform input[type=button]:active,
 #logform input[type=submit]:active,
@@ -238,7 +255,8 @@ h2.active {
   transform: scale(0.95);
 }
 #logform input[type=text],
-#logform input[type=email] {
+#logform input[type=email],
+#logform input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -259,12 +277,14 @@ h2.active {
   border-radius: 5px 5px 5px 5px;
 }
 #logform input[type=text]:focus,
-#logform input[type=email]:focus {
+#logform input[type=email]:focus,
+#logform input[type=password]:focus {
   background-color: #fff;
-  border-bottom: 2px solid #c4e6f5;
+  border-bottom: 2px solid #f1cacd;
 }
 #logform input[type=text]:placeholder,
-#logform input[type=email]:placeholder {
+#logform input[type=email]:placeholder,
+#logform input[type=password]:placeholder {
   color: #cccccc;
 }
 
@@ -396,7 +416,7 @@ h2.active {
 
 #header-ul li {
   font-size: 1.2rem;
-  color: #40ade0;
+  color: #d1515a;
 }
 #header-ul li:hover {
   transform: scale(1.09);
@@ -425,12 +445,12 @@ a:hover,
 .bi-pencil-square:hover {
   transform: scale(1);
   transition: none;
-  color: #2195cc;
+  color: #bd323c;
 }
 
 .post-pic {
   font-size: 1.6rem;
-  color: #40ade0;
+  color: #d1515a;
   padding: 0;
   margin: 0;
 }
@@ -449,10 +469,10 @@ a:hover,
 }
 
 #dropdownmenu {
-  color: #40ade0;
+  color: #d1515a;
 }
 #dropdownmenu:hover {
-  color: #2195cc;
+  color: #bd323c;
 }
 
 .card {
@@ -460,12 +480,12 @@ a:hover,
 }
 
 .btn-com {
-  background-color: #40ade0;
+  background-color: #d1515a;
   color: white;
 }
 .btn-com:hover {
   color: white;
-  background-color: #2195cc;
+  background-color: #bd323c;
 }
 
 #com-username {
@@ -481,7 +501,7 @@ a:hover,
 }
 #banner h1 {
   color: white;
-  text-shadow: 1px 1px 2px #40ade0;
+  text-shadow: 1px 1px 2px #d1515a;
 }
 
 .com-content {
@@ -498,7 +518,7 @@ a:hover,
 
 .profile-pic {
   font-size: 6rem;
-  color: #40ade0;
+  color: #d1515a;
   cursor: default;
 }
 
@@ -513,7 +533,7 @@ a:hover,
 #newpostform input[type=button],
 #newpostform input[type=submit],
 #newpostform input[type=reset] {
-  background-color: #40ade0;
+  background-color: #d1515a;
   border: none;
   color: white;
   padding: 5px;
@@ -534,7 +554,7 @@ a:hover,
 #newpostform input[type=button]:hover,
 #newpostform input[type=submit]:hover,
 #newpostform input[type=reset]:hover {
-  background-color: #6cc0e7;
+  background-color: #dc7980;
 }
 #newpostform input[type=button]:active,
 #newpostform input[type=submit]:active,
@@ -571,7 +591,7 @@ a:hover,
 #newpostform input[type=email]:focus,
 #newpostform textarea:focus {
   background-color: #fff;
-  border-bottom: 2px solid #c4e6f5;
+  border-bottom: 2px solid #f1cacd;
 }
 #newpostform ::placeholder {
   color: #cccccc;
