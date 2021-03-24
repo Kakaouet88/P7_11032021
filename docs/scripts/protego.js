@@ -9,4 +9,3 @@ const verifyLog = async () => {
     }
   });
 };
-verifyLog();

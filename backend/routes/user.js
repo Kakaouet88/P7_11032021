@@ -18,7 +18,7 @@ const regex = require("../middleware/regex");
 
 router.get("/:id", auth, userCtrl.getOneUser);
 router.post("/signup", regex.authValidation, regex.Validation, userCtrl.signup);
-router.post("/login", regex.authValidation, bouncer.block, userCtrl.login);
+router.post("/login", regex.authValidation, userCtrl.login);
 router.put(
   "/:id",
   auth,

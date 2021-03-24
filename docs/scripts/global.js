@@ -9,6 +9,17 @@ const updatedAtFormat = (str) => {
   return formatDate;
 };
 
+// *************HEADERS*******************
+const getheaders = () => {
+  var user = localStorage.getItem("user");
+  var token = JSON.parse(user)[0].TOKEN;
+  const headers = {
+    Authorization: "Bearer" + " " + token,
+    "Content-Type": "application/json",
+  };
+  return headers;
+};
+
 //  *********************requete POST****************
 
 var xhrpost = function (x, route) {
@@ -17,7 +28,7 @@ var xhrpost = function (x, route) {
 
     xhr.onreadystatechange = function () {
       if (xhr.readyState == XMLHttpRequest.DONE) {
-        if (xhr.status == 201) {
+        if (xhr.status == 201 || xhr.status == 200) {
           console.log("success", xhr);
           resolve(JSON.parse(xhr.responseText));
         } else {

@@ -17,6 +17,12 @@ document.getElementById("formbtn").addEventListener("click", function () {
     };
     xhrpost(userObj, "/api/auth/login").then((res) => {
       if ((res.status = 200)) {
+        let userinfos = {
+          TOKEN: res.token,
+          USERID: res.userId,
+          ISADMIN: res.isadmin,
+        };
+        localStorage.setItem("user", JSON.stringify(userinfos));
         window.location.assign("accueil.html");
       }
     });

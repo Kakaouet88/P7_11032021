@@ -2,7 +2,10 @@
 let posts;
 
 const fetchProducts = async () => {
-  posts = await fetch(apiUrl + "/api/posts")
+  posts = await fetch(apiUrl + "/api/posts", {
+    method: "get",
+    headers: new Headers(getheaders()),
+  })
     .then((res) => res.json())
     .catch((error) => {
       alert(error);
