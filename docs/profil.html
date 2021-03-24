@@ -68,10 +68,15 @@
                       <i class="bi bi-person-circle profile-pic"></i>
                   </div>
       </div>
-      <div class="card-body py-3">
-        <p><span class="font-weight-bold">Nom d'utilisateur : &nbsp;&nbsp;</span>jeanmi</p>
-        <p><span class="font-weight-bold">Email : &nbsp;&nbsp;</span>jeanmidelacompta@groupomania.com</p>
-        <p><span class="font-weight-bold">Mot de passe : &nbsp;&nbsp;</span> ******</p>
+      <div class="card-body px-5 py-3">
+        <form id="profileform">
+          <label class="fadeInDown" for="username">Nom d'utilisateur : </label>
+          <input class="fadeIn" name="profile" type="text" id="username" placeholder="JeanMi" readonly>
+          <label class="fadeInDown first" for="email">Adresse email : </label>
+          <input class="fadeIn first" name="profile" type="email" id="email" placeholder="jeanmi@delacompta.com" readonly>
+          <label class="fadeInDown second" for="password"> Mot de passe : </label>
+          <input class="fadeIn second" name="profile" type="password" id="password" placeholder="******" readonly>
+        </form>
       </div>
 
       <div class="card-footer">
@@ -89,7 +94,7 @@
 
 
   <!-- FOOTER -->
-  <footer class="bg-light absolute-bottom text-center mt-3">
+  <footer class="bg-light text-center mt-3">
     <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2); font-size: .6rem;">
     <p class="p-1 m-0 animate__animated animate__fadeIn animate__slow">© 2021 Copyright : <a class="text-dark" href="">Groupomania Group</a></p>
   </div>

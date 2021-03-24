@@ -12,7 +12,7 @@ const updatedAtFormat = (str) => {
 // *************HEADERS*******************
 const getheaders = () => {
   var user = localStorage.getItem("user");
-  var token = JSON.parse(user)[0].TOKEN;
+  var token = JSON.parse(user).TOKEN;
   const headers = {
     Authorization: "Bearer" + " " + token,
     "Content-Type": "application/json",

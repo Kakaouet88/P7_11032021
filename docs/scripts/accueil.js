@@ -27,7 +27,9 @@ const displayProductsList = async () => {
         `
         <div class="card gedf-card col-md-8 mx-auto mt-3 dropshadow-sm animate__animated animate__fadeInUp">
         <div class="card-header d-flex align-items-center pl-3 p-0">
-                    <a href="./profil.html" title="voir profil"><div class="mr-2 pb-2">
+                    <a href="./profil.html/?id=${
+                      post.UserId
+                    }" title="voir profil"><div class="mr-2 pb-2">
                         <i class="bi bi-person-circle post-pic"></i>
                     </div></a>
                     <div class="ml-2">
@@ -36,7 +38,9 @@ const displayProductsList = async () => {
                         } </div>
                     </div>
         </div>
-        <a href="./post.html" class="postlink" title="voir post"><div class="card-body py-2">
+        <a href="./post.html?id=${
+          post.id
+        }" class="postlink" title="voir post"><div class="card-body py-2">
             <p class="font-weight-bold">${post.title}</p>
             <p class="card-text">${post.content}</p>
             <div class="text-muted post-createdat h6">  <i class="bi bi-clock"></i> ${updatedAtFormat(

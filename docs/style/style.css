@@ -367,13 +367,31 @@ h2.active {
   animation-delay: 0.4s;
 }
 
+.fadeInDown.first {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
 .fadeIn.second {
   -webkit-animation-delay: 0.6s;
   -moz-animation-delay: 0.6s;
   animation-delay: 0.6s;
 }
 
+.fadeInDown.second {
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
 .fadeIn.third {
+  -webkit-animation-delay: 0.8s;
+  -moz-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+}
+
+.fadeInDown.third {
   -webkit-animation-delay: 0.8s;
   -moz-animation-delay: 0.8s;
   animation-delay: 0.8s;
@@ -524,6 +542,90 @@ a:hover,
 
 .profile-createdat {
   font-size: 1rem;
+}
+
+#profileform input[type=button],
+#profileform input[type=submit],
+#profileform input[type=reset] {
+  background-color: #d1515a;
+  border: none;
+  color: white;
+  padding: 15px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px 20px 40px 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+#profileform input[type=button]:hover,
+#profileform input[type=submit]:hover,
+#profileform input[type=reset]:hover {
+  background-color: #dc7980;
+}
+#profileform input[type=button]:active,
+#profileform input[type=submit]:active,
+#profileform input[type=reset]:active {
+  -moz-transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
+#profileform input[type=text],
+#profileform input[type=email],
+#profileform input[type=password] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 70%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+#profileform input[type=text]:focus,
+#profileform input[type=email]:focus,
+#profileform input[type=password]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #f1cacd;
+}
+#profileform input[type=text]:read-only:focus,
+#profileform input[type=email]:read-only:focus,
+#profileform input[type=password]:read-only:focus {
+  background-color: white;
+  border: none;
+  color: black;
+}
+#profileform input[type=text]:read-only,
+#profileform input[type=email]:read-only,
+#profileform input[type=password]:read-only {
+  background-color: white;
+  border: none;
+  color: black;
+  text-align: left;
+}
+#profileform input[type=text]:placeholder,
+#profileform input[type=email]:placeholder,
+#profileform input[type=password]:placeholder {
+  color: #cccccc;
 }
 
 .com-createdat {
