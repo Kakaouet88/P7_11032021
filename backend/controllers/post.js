@@ -95,6 +95,6 @@ exports.commentPost = (req, res, next) => {
   });
   newcom
     .save()
-    .then(() => res.status(200).json({ message: "Commentaire créé !" }))
+    .then(() => res.status(201).json({ message: "Commentaire créé !" }))
     .catch((error) => res.status(400).json({ error }));
 };

@@ -27,7 +27,7 @@ const displayProductsList = async () => {
         `
         <div class="card gedf-card col-md-8 mx-auto mt-3 dropshadow-sm animate__animated animate__fadeInUp">
         <div class="card-header d-flex align-items-center pl-3 p-0">
-                    <a href="./profil.html/?id=${
+                    <a href="./profil.html?id=${
                       post.UserId
                     }" title="voir profil"><div class="mr-2 pb-2">
                         <i class="bi bi-person-circle post-pic"></i>
@@ -87,18 +87,13 @@ const addComment = async () => {
   for (let i = 0; i < submit.length; i++) {
     submit[i].addEventListener("click", function () {
       let postId = this.dataset.pid;
-
       const route = "/api/posts/" + postId;
-
       console.log(route);
-
       let com = document.getElementById("com-content").value;
-
       let comObj = { content: com };
-
       console.log(comObj);
 
-      xhrpost(comObj, route);
+      xhrpost(comObj, route).then(() => displayProductsList());
     });
   }
 };

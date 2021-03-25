@@ -1,7 +1,8 @@
 const User = require("../models/user");
+const Comment = require("../models/comment");
+const Post = require("../models/post");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Post = require("../models/post");
 const bouncer = require("express-bouncer")(120000, 1.8e6, 5);
 
 exports.signup = (req, res, next) => {
@@ -63,43 +64,53 @@ exports.getOneUser = (req, res, next) => {
 };
 
 exports.modifyUser = (req, res, next) => {
-  const newuser = { ...req.body };
-  // vérifier que l'utilisateur qui initie la requête est bien le créateur de la sauce et donc dispose des droits pour la supprimer
-  if (req.body.userId === req.token.userId) {
-    // modif objet
-    User.update(
-      { where: { id: req.params.id } },
-      { ...newuser, id: req.params.id }
-    )
-      .then(() => res.status(200).json({ message: "Profil modifié !" }))
-      .catch((error) => res.status(400).json({ error }));
-  } else {
-    res.status(401).json({
-      error: "Vous ne pouvez pas modifier un profil qui n'est pas le vôtre !",
-    });
-  }
+  bcrypt
+    .hash(req.body.password, 10)
+    .then((hash) => {
+      const newuser = {
+        username: req.body.username,
+        email: req.body.email,
+        password: hash,
+      };
+      // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
+      if (req.params.id === req.token.userId) {
+        User.findOne({
+          where: { id: req.params.id },
+        }).then((user) => {
+          bcrypt.compare(req.body.oldpassword, user.password).then((valid) => {
+            if (!valid) {
+              return res
+                .status(401)
+                .json({ error: "Ancien mot de passe incorrect" });
+            } else {
+              User.update(
+                { where: { id: req.params.id } },
+                { ...newuser, id: req.params.id }
+              )
+                .then(() =>
+                  res.status(200).json({ message: "Profil modifié !" })
+                )
+                .catch((error) => res.status(400).json({ error }));
+            }
+          });
+        });
+      } else {
+        res.status(401).json({
+          error:
+            "Vous ne pouvez pas modifier un profil qui n'est pas le vôtre !",
+        });
+      }
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
 
 exports.deleteUser = (req, res, next) => {
   User.findOne({
     where: { id: req.params.id },
-    include: [Comment, Post],
   })
     .then((user) => {
       // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
       if (user.id === req.token.userId || req.token.isadmin === true) {
-        Comment.destroy({ where: { userId: user.id } })
-          .then(() =>
-            res
-              .status(200)
-              .json({ message: "Commentaires du profil supprimés !" })
-          )
-          .catch((error) => res.status(400).json({ error }));
-        Post.destroy({ where: { userId: user.id } })
-          .then(() =>
-            res.status(200).json({ message: "Posts du profil supprimés !" })
-          )
-          .catch((error) => res.status(400).json({ error }));
         User.destroy({ where: { id: user.id } })
           .then(() => res.status(200).json({ message: "Profil supprimé !" }))
           .catch((error) => res.status(400).json({ error }));
@@ -109,5 +120,64 @@ exports.deleteUser = (req, res, next) => {
         });
       }
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(500).json({ error: "deleteUser" + error }));
+};
+
+exports.deleteUserComment = (req, res, next) => {
+  User.findOne({
+    where: { id: req.params.id },
+  })
+    .then((user) => {
+      // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
+      // if (user.id === req.token.userId || req.token.isadmin === true) {
+
+      Comment.findAll({
+        where: { UserId: user.id },
+      }).then((comment) => {
+        if (!comment) {
+          console.log("aucun com à supprimer");
+          next();
+        } else {
+          Comment.destroy({ where: { userId: user.id } });
+          next();
+        }
+      });
+      //   else {
+      //     res.status(401).json({
+      //       error: "Vous ne disposez pas des droits pour supprimer ce profil !",
+      //     });
+      //   }
+      // })
+    })
+    .catch((error) => res.status(500).json({ error: "deleteCom" + error }));
+};
+
+exports.deleteUserPost = (req, res, next) => {
+  User.findOne({
+    where: { id: req.params.id },
+  })
+    .then((user) => {
+      // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
+      // if (user.id === req.token.userId || req.token.isadmin === true) {
+
+      Post.findAll({
+        where: { UserId: user.id },
+      }).then((post) => {
+        if (!post) {
+          console.log("aucun post à supprimer");
+          next();
+        } else {
+          Post.destroy({ where: { userId: user.id } });
+          next();
+        }
+      });
+
+      //   else {
+      //     res.status(401).json({
+      //       error: "Vous ne disposez pas des droits pour supprimer ce profil !",
+      //     });
+      //   }
+      // })
+    })
+    .catch((error) => res.status(500).json({ error: "deletePost" + error }));
 };

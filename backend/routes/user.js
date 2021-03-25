@@ -17,15 +17,15 @@ const userCtrl = require("../controllers/user");
 const regex = require("../middleware/regex");
 
 router.get("/:id", auth, userCtrl.getOneUser);
-router.post("/signup", regex.authValidation, regex.Validation, userCtrl.signup);
-router.post("/login", regex.authValidation, userCtrl.login);
-router.put(
+router.post("/signup", regex.Validation, userCtrl.signup);
+router.post("/login", regex.Validation, userCtrl.login);
+router.put("/:id", auth, regex.Validation, userCtrl.modifyUser);
+router.delete(
   "/:id",
   auth,
-  regex.authValidation,
-  regex.Validation,
-  userCtrl.modifyUser
+  userCtrl.deleteUserComment,
+  userCtrl.deleteUserPost,
+  userCtrl.deleteUser
 );
-router.delete("/:id", auth, userCtrl.deleteUser);
 
 module.exports = router;

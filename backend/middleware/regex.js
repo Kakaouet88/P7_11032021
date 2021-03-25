@@ -25,7 +25,7 @@ exports.authValidation = (req, res, next) => {
   var regexMail = new RegExp("^[^@s]+@[^@s.]+.[^@.s]+$");
   try {
     if (!regexMail.test(req.body.email)) {
-      throw "Veillez à utiliser une adresse email valide";
+      throw "Adresse email invalide";
     } else {
       next();
     }
