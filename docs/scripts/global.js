@@ -20,9 +20,12 @@ const getheaders = () => {
   return headers;
 };
 
-// *****************userId************
+// *****************user infos************
 var user = sessionStorage.getItem("user");
 var userId = JSON.parse(user).USERID;
+var tokenId = JSON.parse(user).TOKEN;
+var isAdmin = JSON.parse(user).ISADMIN;
+var userName = JSON.parse(user).USERNAME;
 
 //  *********************requete POST****************
 function xhrpost(x, route) {
@@ -78,3 +81,10 @@ function checkForm() {
     return false;
   }
 }
+
+// **************USER PROFILE URL***************
+
+document.getElementById("header-ul").innerHTML = `
+<a href="./createpost.html" id="createpostbtn" class="p-0 m-0" title="créer un post"><li id="createpost" class="nav-link animate__animated animate__fadeIn animate__slow dropshadow-sm"><i class="bi bi-pencil-square"></i></li></a>
+<a href="./profil.html?id=${userId}" id="profilepagebtn" class="p-0 m-0" title="mon profil"><li class="nav-link px-0 ml-4 animate__animated animate__fadeIn animate__slow dropshadow-sm"><i class="bi bi-person-circle"></i></li></a>
+`;

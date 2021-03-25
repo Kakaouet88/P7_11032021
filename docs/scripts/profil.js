@@ -1,6 +1,9 @@
 // ***************AFFICHAGE**************
+let param = new URL(window.location).searchParams;
+let profileId = param.get("id");
+
 const fetchProfile = async () => {
-  profile = await fetch(apiUrl + "/api/auth/" + userId, {
+  profile = await fetch(apiUrl + "/api/auth/" + profileId, {
     method: "get",
     headers: new Headers(getheaders()),
   })
@@ -15,15 +18,8 @@ const displayProfile = async () => {
 
   document.getElementById("page-content").innerHTML = `
     <div id="adminbuttons" class="animate__animated animate__fadeIn animate__slow">
-    
-    <div class="d-flex align-items-center justify-content-center mt-4">
-    <button aria-label="editer le profil" class="btn btn-com editpost mr-3" id="editpost"> <i class="bi bi-pencil"></i> Modifier </button>
-        <button aria-label="supprimer le profil" class="btn btn-com deletepost ml-3" id="deletepost"> <i class="bi bi-trash"></i> Supprimer </button>
-        </div>
+    </div>
         
-        </div>
-        
-
         <div id="profile">
         
         <div class="card gedf-card col-md-8 mx-auto mt-4 dropshadow-sm animate__animated animate__fadeIn">
@@ -35,9 +31,9 @@ const displayProfile = async () => {
         <div class="card-body p-3">
         <form id="profileform">
         <label class="fadeInDown" for="username">Nom d'utilisateur : </label>
-        <input class="fadeIn" name="profile" type="text" id="username" placeholder="${
-          profile.username
-        }" readonly>
+        <input class="fadeIn" name="profile" type="text" id="username" data-uid="${
+          profile.id
+        }" placeholder="${profile.username}" readonly>
         <label class="fadeInDown first" for="email">Adresse email : </label>
         <input class="fadeIn first" name="profile" type="email" id="email" placeholder="${
           profile.email
@@ -68,14 +64,45 @@ const displayProfile = async () => {
         </div>
         
         `;
+
+  if (profile.id == userId) {
+    document.getElementById("adminbuttons").innerHTML = `
+        <div class="d-flex align-items-center justify-content-center mt-4">
+        <button aria-label="editer le profil" class="btn btn-com editpost mr-3" id="editpost"> <i class="bi bi-pencil"></i> Modifier </button>
+            <button aria-label="supprimer le profil" class="btn btn-com deletepost ml-3" id="deletepost"> <i class="bi bi-trash"></i> Supprimer </button>
+            </div>
+        `;
+    document.getElementById("editmode").innerHTML = `
+        <div class="d-flex align-items-center justify-content-center mt-4">
+            <button aria-label="se déconnecter" class="btn btn-com disconnect p-3" id="disconnect"> <i class="bi bi-x-square mr-2"></i> Se déconnecter </button>
+        </div>
+    `;
+  } else if (isAdmin) {
+    document.getElementById("adminbuttons").innerHTML = `
+        <div class="d-flex align-items-center justify-content-center mt-4">
+        <button aria-label="supprimer le profil" class="btn btn-com deletepost ml-3" id="deletepost"> <i class="bi bi-trash"></i> Supprimer </button>
+            </div>
+        `;
+    document.getElementById("banner").innerHTML = `
+        <div id="banner" class="col-12 py-3 text-center d-flex align-items-center">
+        <h1 class="h5 animate__animated animate__fadeIn animate__slower col-10 mx-auto col-md-12"><span id="bannertext">Profil de ${profile.username}<br>(mode administrateur)</span></h1>
+      </div>`;
+  } else {
+    document.getElementById("banner").innerHTML = `
+    <div id="banner" class="col-12 py-3 text-center d-flex align-items-center">
+    <h1 class="h5 animate__animated animate__fadeIn animate__slower col-10 mx-auto col-md-12"><span id="bannertext">Profil de ${profile.username}</span></h1>
+  </div>
+    `;
+  }
 };
 
 const manageProfile = async () => {
   await displayProfile();
 
+  //   ****************DELETE PROFILE*****************
   document.getElementById("deletepost").addEventListener("click", function () {
     console.log("piiip");
-    fetch(apiUrl + "/api/auth/" + userId, {
+    fetch(apiUrl + "/api/auth/" + profileId, {
       method: "DELETE",
       headers: new Headers(getheaders()),
     })
@@ -87,9 +114,18 @@ const manageProfile = async () => {
       })
       .catch((error) => console.log(error));
   });
-
+  //   ***********DECO**************
+  document.getElementById("disconnect").addEventListener("click", function () {
+    sessionStorage.clear();
+    window.location.assign("index.html");
+  });
+  //   *******************MODIF PROFILE***************
   document.getElementById("editpost").addEventListener("click", function () {
     console.log("pipou");
+    // titre page
+    document.getElementById("banner").innerHTML = `
+    <h1 class="h5 animate__animated animate__fadeIn col-10 mx-auto col-md-12"><span id="bannertext">Modifier les informations du profil</span></h1>
+    `;
     // ajoute champ oldpass
     document.getElementById("oldpass").innerHTML = `
     <label class="fadeInDown second" for="oldpassword"> Ancien mot de passe : </label>
@@ -103,6 +139,12 @@ const manageProfile = async () => {
     document.getElementById("editmode").innerHTML = `
     <div class="d-flex align-items-center justify-content-center mt-4">
         <button aria-label="editer le profil" class="btn btn-com editpost p-3" id="savechanges"> <i class="bi bi-check-square mr-2"></i> Sauvegarder </button>
+    </div>
+    `;
+    // remplace le btn delete par un bouton retour
+    document.getElementById("adminbuttons").innerHTML = `
+    <div class="d-flex align-items-center justify-content-center mt-4">
+        <a href="./profil.html?id=${userId}" aria-label="retour" class="btn btn-com retour m-3" id="retour"> <i class="bi bi-arrow-left-square"></i>&nbsp; Retour </a>
     </div>
     `;
 
@@ -130,7 +172,7 @@ const manageProfile = async () => {
           fetch(apiUrl + "/api/auth/" + userId, {
             method: "PUT",
             headers: new Headers(getheaders()),
-            body: userObj,
+            body: JSON.stringify(userObj),
           })
             .then((res) => {
               if (res.status == 200) {

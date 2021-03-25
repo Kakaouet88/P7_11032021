@@ -21,6 +21,8 @@ const fetchProducts = async () => {
 const displayProductsList = async () => {
   await fetchProducts();
 
+  document.getElementById("bannertext").innerHTML = userName;
+
   document.getElementById("page-content").innerHTML = posts
     .map(
       (post) =>

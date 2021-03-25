@@ -22,6 +22,7 @@ document.getElementById("formbtn").addEventListener("click", function () {
             TOKEN: res.token,
             USERID: res.userId,
             ISADMIN: res.isadmin,
+            USERNAME: res.username,
           };
           sessionStorage.setItem("user", JSON.stringify(userinfos));
           window.location.assign("accueil.html");
