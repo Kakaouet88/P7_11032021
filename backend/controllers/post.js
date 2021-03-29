@@ -3,10 +3,19 @@ const Comment = require("../models/comment");
 const User = require("../models/user");
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
+const { Sequelize, DataTypes, Op, Model } = require("../middleware/sequelize");
 
 exports.createPost = (req, res, next) => {
+  const postObject = req.file
+    ? {
+        ...JSON.parse(req.body.post),
+        image: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      }
+    : { ...req.body };
   const newpost = Post.build({
-    ...req.body,
+    ...postObject,
     UserId: req.token.userId,
   });
   newpost
@@ -18,6 +27,7 @@ exports.createPost = (req, res, next) => {
 exports.getAllPosts = (req, res, next) => {
   Post.findAll({
     include: [Comment, User],
+    order: [["createdAt", "desc"]],
   })
     .then((post) => res.status(200).json(post))
     .catch((error) => res.status(404).json({ error }));
@@ -26,10 +36,19 @@ exports.getAllPosts = (req, res, next) => {
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
-    include: [{ include: [Comment, User] }],
+    include: [
+      User,
+      {
+        model: Comment,
+        include: User,
+      },
+    ],
+    order: [[{ model: Comment }, "createdAt", "asc"]],
   })
     .then((post) => res.status(200).json(post))
-    .catch((error) => res.status(404).json({ error }));
+    .catch((error) =>
+      res.status(404).json({ error: "getOne error : " + error })
+    );
 };
 
 exports.modifyPost = (req, res, next) => {
@@ -37,11 +56,18 @@ exports.modifyPost = (req, res, next) => {
     .then((post) => {
       if (post.UserId === req.token.userId) {
         // modif objet
+        const postObject = req.file
+          ? {
+              ...JSON.parse(req.body.post),
+              image: `${req.protocol}://${req.get("host")}/images/${
+                req.file.filename
+              }`,
+            }
+          : { ...req.body };
         Post.update(
           { where: { id: req.params.id } },
           {
-            title: req.body.title,
-            content: req.body.content,
+            ...postObject,
             id: req.params.id,
             UserId: userId,
             comments: post.comments,
@@ -61,28 +87,56 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
-    include: Comment,
   })
     .then((post) => {
       // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
       if (post.UserId == req.token.userId || req.token.isadmin === true) {
-        Post.destroy({ where: { id: req.params.id } })
-          .then(() => res.status(200).json({ message: "Post supprimé !" }))
-          .catch((error) => res.status(400).json({ error }));
-        Comment.destroy({ where: { postId: req.params.id } })
-          .then(() =>
-            res
-              .status(200)
-              .json({ message: "Commentaires du post supprimés !" })
-          )
-          .catch((error) => res.status(400).json({ error }));
+        if (post.image) {
+          const filename = post.image.split("/images/")[1];
+          fs.unlink(`../images/${filename}`, () => {
+            Post.destroy({ where: { id: post.id } })
+              .then(() => res.status(200).json({ message: "Post supprimé !" }))
+              .catch((error) => res.status(400).json({ error }));
+          });
+        } else {
+          Post.destroy({ where: { id: post.id } })
+            .then(() => res.status(200).json({ message: "Post supprimé !" }))
+            .catch((error) => res.status(400).json({ error }));
+        }
       } else {
         res.status(401).json({
           error: "Vous ne disposez pas des droits pour supprimer ce post !",
         });
       }
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(500).json({ error: "delet err " + error }));
+};
+
+exports.deletePostComment = (req, res, next) => {
+  Post.findOne({
+    where: { id: req.params.id },
+  })
+    .then((post) => {
+      // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
+      if (post.UserId === req.token.userId || req.token.isadmin === true) {
+        Comment.findAll({
+          where: { PostId: post.id },
+        }).then((comment) => {
+          if (!comment) {
+            console.log("aucun com à supprimer");
+            next();
+          } else {
+            Comment.destroy({ where: { PostId: post.id } });
+            next();
+          }
+        });
+      } else {
+        res.status(401).json({
+          error: "Vous ne disposez pas des droits pour supprimer ce Post !",
+        });
+      }
+    })
+    .catch((error) => res.status(500).json({ error: "deleteCom" + error }));
 };
 
 exports.commentPost = (req, res, next) => {
@@ -97,4 +151,26 @@ exports.commentPost = (req, res, next) => {
     .save()
     .then(() => res.status(201).json({ message: "Commentaire créé !" }))
     .catch((error) => res.status(400).json({ error }));
+};
+
+exports.deleteCom = (req, res, next) => {
+  Comment.findOne({
+    where: { id: req.params.id },
+  })
+    .then((com) => {
+      // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
+      if (com.UserId == req.token.userId || req.token.isadmin === true) {
+        Comment.destroy({ where: { id: com.id } })
+          .then(() =>
+            res.status(200).json({ message: "Commentaire supprimé !" })
+          )
+          .catch((error) => res.status(400).json({ error }));
+      } else {
+        res.status(401).json({
+          error:
+            "Vous ne disposez pas des droits pour supprimer ce commentaire !",
+        });
+      }
+    })
+    .catch((error) => res.status(500).json({ error }));
 };

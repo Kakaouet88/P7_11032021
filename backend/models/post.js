@@ -10,6 +10,11 @@ const Post = sequelize.define("Post", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  image: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null,
+  },
 });
 
 module.exports = Post;

@@ -44,7 +44,7 @@ exports.login = (req, res, next) => {
               { userId: user.id, isadmin: user.isadmin },
               process.env.TOKEN_KEY,
               {
-                expiresIn: "2h",
+                expiresIn: "24h",
               }
             ),
           });

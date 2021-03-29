@@ -1,3 +1,10 @@
 .com-createdat {
   font-size: 0.7rem;
 }
+
+.removeCom {
+  color: $color-primary;
+  position: absolute;
+  right: 6%;
+  cursor: pointer;
+}

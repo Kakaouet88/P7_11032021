@@ -51,36 +51,41 @@
   <div class="container" id="page-content">
 
     <form id="newpostform">
-    <!-- POST MODEL -->
-    <div class="card gedf-card col-md-8 mx-auto mt-3 dropshadow-sm">
-      <div class="card-header d-flex align-items-center pl-3 p-0">
-                  <div class="mr-2 pb-2">
-                      <i class="bi bi-person-circle post-pic"></i>
-                  </div>
-                  <div class="ml-2">
-                      <div class="post-username m-0">username </div>
-                  </div>
-      </div>
-      <div class="card-body py-2">
-        <label for="title">Titre : </label>
-        <input type="text" id="title" name="title" maxlength="50" placeholder="Maximum 50 caractères, caractères spéciaux interdits"></input>
-        <label class="mt-3" for="content">Contenu : </label><br>
-        <textarea class="card-text" id="content" name="content" rows="10" placeholder="Maximum 5000 caractères, caractères spéciaux interdits" maxlength="5000" size="1000" form="newpostform"></textarea>
-      </div>
-      <div class="card-footer">
-          <button type="submit" value="publier" class="btn-com btn"> Publier </button>
-      </div>
 
-  </div>
-  <!-- POST MODEL FIN -->
-  </form>
+      <div class="card gedf-card col-md-8 mx-auto mt-3 dropshadow-sm">
+        <div class="card-header d-flex align-items-center pl-3 p-0">
+                    <div class="mr-2 pb-2">
+                        <i class="bi bi-person-circle post-pic"></i>
+                    </div>
+                    <div class="ml-2">
+                        <div class="post-username m-0"></div>
+                    </div>
+        </div>
+        <div class="card-body py-2">
+          <label for="title">Titre : </label>
+          <input type="text" id="title" name="title" maxlength="50" placeholder="Maximum 50 caractères, caractères spéciaux interdits"></input>
+          <label class="mt-3" for="content">Contenu : </label><br>
+          <textarea class="card-text" id="content" name="content" rows="10" placeholder="Maximum 5000 caractères, caractères spéciaux interdits" maxlength="5000" size="1000" form="newpostform"></textarea>
+          <label class="mt-3" for="image">Image (facultatif) : </label><br>
+          <input type="file" accept=".jpg, .jpeg, .png" id="image" name="image"></input>
+  
+          <div class="preview mt-2 d-flex flex-row">
+          </div>
+        </div>
+  
+      </form>
+      <div class="card-footer justify-content-center d-flex p-3">
+        <button value="Publier" id="postEdit" class="btn-com btn"> Publier </button>
+      </div>
+    </div>
+  
 
   </div>
   <!-- FIN CONTENT -->
 
 
   <!-- FOOTER -->
-  <footer class="bg-light absolute-bottom text-center mt-3">
+  <footer class="bg-light text-center mt-3">
     <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2); font-size: .6rem;">
     <p class="p-1 m-0 animate__animated animate__fadeIn animate__slow">© 2021 Copyright : <a class="text-dark" href="">Groupomania Group</a></p>
   </div>
@@ -114,7 +119,8 @@
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"
     ></script>
-    <script src="./scripts/protego.js"></script>
     <script src="./scripts/global.js"></script>
+    <script src="./scripts/protego.js"></script>
+    <script src="./scripts/createpost.js"></script>
   </body>
 </html>

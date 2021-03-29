@@ -3,7 +3,7 @@ let posts;
 
 const fetchProducts = async () => {
   posts = await fetch(apiUrl + "/api/posts", {
-    method: "get",
+    method: "GET",
     headers: new Headers(getheaders()),
   })
     .then((res) => res.json())

@@ -1,3 +1,20 @@
+.preview {
+  & ol {
+    padding: 0;
+    width: 100%;
+  }
+  & li {
+    list-style: none;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    & img {
+      max-height: 10vw;
+      min-height: 50px;
+    }
+  }
+}
+
 #newpostform {
   input[type="button"],
   input[type="submit"],

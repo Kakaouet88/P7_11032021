@@ -632,6 +632,28 @@ a:hover,
   font-size: 0.7rem;
 }
 
+.removeCom {
+  color: #d1515a;
+  position: absolute;
+  right: 6%;
+  cursor: pointer;
+}
+
+.preview ol {
+  padding: 0;
+  width: 100%;
+}
+.preview li {
+  list-style: none;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.preview li img {
+  max-height: 10vw;
+  min-height: 50px;
+}
+
 #newpostform input[type=button],
 #newpostform input[type=submit],
 #newpostform input[type=reset] {
