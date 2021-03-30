@@ -50,9 +50,9 @@
   <!-- CONTENT -->
   <div class="container" id="page-content">
 
-    <form id="newpostform">
-
-      <div class="card gedf-card col-md-8 mx-auto mt-3 dropshadow-sm">
+    
+    <div class="card gedf-card col-md-8 mx-auto mt-3 dropshadow-sm">
+        <form id="newpostform" enctype="multipart/form-data" method="POST">
         <div class="card-header d-flex align-items-center pl-3 p-0">
                     <div class="mr-2 pb-2">
                         <i class="bi bi-person-circle post-pic"></i>
@@ -72,12 +72,12 @@
           <div class="preview mt-2 d-flex flex-row">
           </div>
         </div>
-  
-      </form>
-      <div class="card-footer justify-content-center d-flex p-3">
-        <button value="Publier" id="postEdit" class="btn-com btn"> Publier </button>
+        </form>
+        
+        <div class="card-footer justify-content-center d-flex p-3">
+          <button id="postEdit" class="btn-com btn"> Publier </button>
+        </div>
       </div>
-    </div>
   
 
   </div>

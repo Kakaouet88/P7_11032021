@@ -5,8 +5,6 @@ const postRoutes = require("./routes/post");
 const userRoutes = require("./routes/user");
 const path = require("path");
 
-require("dotenv").config();
-
 const app = express();
 
 app.use(helmet());
@@ -24,7 +22,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 

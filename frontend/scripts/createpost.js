@@ -24,6 +24,9 @@ const displayForm = async () => {
     title.value = post.title;
     content.value = post.content;
     image.value = post.image;
+    document
+      .querySelector("#newpostform")
+      .setAttribute("action", "/api/posts/" + editmode);
   }
 
   document.querySelector(".post-username").innerHTML = userName;
@@ -99,41 +102,28 @@ displayForm();
 // ***********ENVOI REQUETE VALIDATION FORMULAIRE SELON MODE ******************
 const formAction = async () => {
   document.getElementById("postEdit").addEventListener("click", function () {
-    let postObj = {
-      title: title.value,
-      content: content.value,
-    };
+    let imgName = image.value.split("fakepath\\")[1];
+    var postObj = new FormData();
+    postObj.append("title", title.value);
+    postObj.append("content", content.value);
+    postObj.append("image", image.files[0]);
 
     if (!editmode) {
       // *****************MODE CREA****************
-      fetch("/api/posts", {
-        method: "POST",
-        headers: new Headers(getheaders()),
-        body: postObj,
-        file: image.files[0],
-      })
+      let route = "/api/posts";
+      xhrpostform(postObj, route)
         .then((res) => {
           if ((res.status = 201)) {
-            console.log("pip");
             // window.location.assign("post.html?id=" + editmode);
           }
         })
         .catch((error) => console.log(error));
     } else {
       // ********************MODE EDIT********************
-      let postObj = {
-        title: title.value,
-        content: content.value,
-      };
-      fetch("/api/posts", {
-        method: "PUT",
-        headers: new Headers(getheaders()),
-        body: postObj,
-        file: image.files[0],
-      })
+      let route = "/api/posts/" + editmode;
+      xhrpostform(postObj, route)
         .then((res) => {
           if ((res.status = 201)) {
-            console.log("pip");
             // window.location.assign("post.html?id=" + editmode);
           }
         })

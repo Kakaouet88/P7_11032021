@@ -8,7 +8,8 @@ const { Sequelize, DataTypes, Op, Model } = require("../middleware/sequelize");
 exports.createPost = (req, res, next) => {
   const postObject = req.file
     ? {
-        ...JSON.parse(req.body.post),
+        title: req.body.title,
+        content: req.body.content,
         image: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
@@ -21,7 +22,7 @@ exports.createPost = (req, res, next) => {
   newpost
     .save()
     .then(() => res.status(201).json({ message: "Post créé !" }))
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => res.status(400).json({ error: error }));
 };
 
 exports.getAllPosts = (req, res, next) => {

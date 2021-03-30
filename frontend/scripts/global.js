@@ -52,6 +52,29 @@ function xhrpost(x, route) {
   });
 }
 
+function xhrpostform(x, route) {
+  return new Promise((resolve, reject) => {
+    var xhr = new XMLHttpRequest();
+    var user = sessionStorage.getItem("user");
+    var token = JSON.parse(user).TOKEN;
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        if (xhr.status == 201 || xhr.status == 200) {
+          console.log("success", xhr);
+          resolve(JSON.parse(xhr.responseText));
+        } else {
+          console.log("error");
+          reject(xhr);
+        }
+      }
+    };
+    xhr.open("POST", apiUrl + route, true);
+    xhr.setRequestHeader("Authorization", "Bearer" + " " + token);
+    xhr.send(x);
+  });
+}
+
 function xhrpostauth(x, route) {
   return new Promise((resolve, reject) => {
     var xhr = new XMLHttpRequest();
