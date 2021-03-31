@@ -3,6 +3,7 @@ var editmode = param.get("id");
 const title = document.getElementById("title");
 const content = document.getElementById("content");
 const image = document.getElementById("image");
+const preview = document.querySelector(".preview");
 
 var post;
 const fetchPost = async () => {
@@ -21,9 +22,12 @@ const fetchPost = async () => {
 const displayForm = async () => {
   if (editmode) {
     await fetchPost();
+    var oldImg = document.createElement("img");
+    preview.appendChild(oldImg);
     title.value = post.title;
     content.value = post.content;
-    image.value = post.image;
+    oldImg.setAttribute("src", post.image);
+    oldImg.setAttribute("style", "max-height: 10vw; min-height: 70px;");
     document
       .querySelector("#newpostform")
       .setAttribute("action", "/api/posts/" + editmode);
@@ -32,7 +36,6 @@ const displayForm = async () => {
   document.querySelector(".post-username").innerHTML = userName;
 
   var input = document.querySelector("input[type=file]");
-  var preview = document.querySelector(".preview");
 
   input.addEventListener("change", updateImageDisplay);
 
@@ -102,11 +105,15 @@ displayForm();
 // ***********ENVOI REQUETE VALIDATION FORMULAIRE SELON MODE ******************
 const formAction = async () => {
   document.getElementById("postEdit").addEventListener("click", function () {
-    let imgName = image.value.split("fakepath\\")[1];
     var postObj = new FormData();
-    postObj.append("title", title.value);
-    postObj.append("content", content.value);
-    postObj.append("image", image.files[0]);
+    if (image.files[0]) {
+      postObj.append("title", title.value);
+      postObj.append("content", content.value);
+      postObj.append("image", image.files[0]);
+    } else {
+      postObj.append("title", title.value);
+      postObj.append("content", content.value);
+    }
 
     if (!editmode) {
       // *****************MODE CREA****************
@@ -114,17 +121,17 @@ const formAction = async () => {
       xhrpostform(postObj, route)
         .then((res) => {
           if ((res.status = 201)) {
-            // window.location.assign("post.html?id=" + editmode);
+            window.location.assign("accueil.html");
           }
         })
         .catch((error) => console.log(error));
     } else {
       // ********************MODE EDIT********************
       let route = "/api/posts/" + editmode;
-      xhrpostform(postObj, route)
+      xhrputform(postObj, route)
         .then((res) => {
           if ((res.status = 201)) {
-            // window.location.assign("post.html?id=" + editmode);
+            window.location.assign("post.html?id=" + editmode);
           }
         })
         .catch((error) => console.log(error));

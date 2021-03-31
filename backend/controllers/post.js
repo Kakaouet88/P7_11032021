@@ -55,34 +55,35 @@ exports.getOnePost = (req, res, next) => {
 exports.modifyPost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {
-      if (post.UserId === req.token.userId) {
+      if (post.UserId == req.token.userId) {
         // modif objet
         const postObject = req.file
           ? {
-              ...JSON.parse(req.body.post),
+              ...req.body,
               image: `${req.protocol}://${req.get("host")}/images/${
                 req.file.filename
               }`,
             }
           : { ...req.body };
         Post.update(
-          { where: { id: req.params.id } },
           {
             ...postObject,
-            id: req.params.id,
-            UserId: userId,
-            comments: post.comments,
-          }
+          },
+          { where: { id: req.params.id } }
         )
           .then(() => res.status(200).json({ message: "Post modifié !" }))
-          .catch((error) => res.status(400).json({ error }));
+          .catch((error) =>
+            res.status(400).json({ error: "bad request " + error })
+          );
       } else {
         res.status(401).json({
           error: "Vous ne disposez pas des droits pour modifier ce post !",
         });
       }
     })
-    .catch((error) => res.status(404).json({ error: "Post introuvable !" }));
+    .catch((error) =>
+      res.status(404).json({ error: "Post introuvable !" + " // " + error })
+    );
 };
 
 exports.deletePost = (req, res, next) => {
@@ -127,8 +128,7 @@ exports.deletePostComment = (req, res, next) => {
             console.log("aucun com à supprimer");
             next();
           } else {
-            Comment.destroy({ where: { PostId: post.id } });
-            next();
+            Comment.destroy({ where: { PostId: post.id } }).then(() => next());
           }
         });
       } else {

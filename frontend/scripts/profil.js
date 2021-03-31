@@ -31,9 +31,9 @@ const displayProfile = async () => {
         <div class="card-body p-3">
         <form id="profileform">
         <label class="fadeInDown" for="username">Nom d'utilisateur : </label>
-        <input class="fadeIn" name="profile" type="text" id="username" data-uid="${
-          profile.id
-        }" placeholder="${profile.username}" readonly>
+        <input class="fadeIn" name="profile" type="text" id="username" placeholder="${
+          profile.username
+        }" readonly>
         <label class="fadeInDown first" for="email">Adresse email : </label>
         <input class="fadeIn first" name="profile" type="email" id="email" placeholder="${
           profile.email
@@ -168,18 +168,16 @@ const manageProfile = async () => {
             oldpassword: oldpassword.value,
             password: password.value,
           };
-
-          fetch(apiUrl + "/api/auth/" + userId, {
-            method: "PUT",
-            headers: new Headers(getheaders()),
-            body: JSON.stringify(userObj),
-          })
+          let route = "/api/auth/" + userId;
+          xhrput(userObj, route)
             .then((res) => {
               if (res.status == 200) {
-                window.location.assign("profil.html?id=" + userId);
+                window.location.reload();
               }
             })
             .catch((error) => console.log(error));
+        } else {
+          throw "Veuillez remplir tous les champs du formulaire";
         }
       });
   });

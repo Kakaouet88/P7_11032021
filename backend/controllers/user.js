@@ -74,10 +74,10 @@ exports.modifyUser = (req, res, next) => {
         password: hash,
       };
       // vérifier que l'utilisateur qui initie la requête est bien le créateur et donc dispose des droits pour la supprimer
-      if (req.params.id === req.token.userId || req.token.isadmin === 1) {
-        User.findOne({
-          where: { id: req.params.id },
-        }).then((user) => {
+      User.findOne({
+        where: { id: req.params.id },
+      }).then((user) => {
+        if (user.id === req.token.userId) {
           bcrypt.compare(req.body.oldpassword, user.password).then((valid) => {
             if (!valid) {
               return res
@@ -96,16 +96,15 @@ exports.modifyUser = (req, res, next) => {
                 );
             }
           });
-        });
-      } else {
-        res.status(401).json({
-          error:
-            "Vous ne pouvez pas modifier un profil qui n'est pas le vôtre !" +
-            uid,
-        });
-      }
+        } else {
+          res.status(401).json({
+            error:
+              "Vous ne pouvez pas modifier un profil qui n'est pas le vôtre !",
+          });
+        }
+      });
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(500).json({ error: "500" + error }));
 };
 
 exports.deleteUser = (req, res, next) => {

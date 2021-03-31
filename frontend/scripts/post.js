@@ -21,8 +21,14 @@ const fetchProducts = async () => {
 const displayProductsList = async () => {
   await fetchProducts();
 
+  if (post.Comments.length < 1 && !post.image) {
+    document.querySelector("footer").classList.add("absolute-bottom");
+  } else {
+    document.querySelector("footer").classList.remove("absolute-bottom");
+  }
+
   document.getElementById("bannertext").innerHTML = `
-  <p>${post.User.username} :</p>${post.title}
+  <a href="profil.html?id=${post.UserId}">@${post.User.username}</a> :<br>${post.title}
   `;
 
   document.getElementById("post").innerHTML = `
@@ -41,7 +47,7 @@ const displayProductsList = async () => {
         </div>
         <div class="card-body py-2">
             <p class="font-weight-bold">${post.title}</p>
-            <p class="card-text">${post.content}</p>
+            <p class="card-text" id="postContent">${post.content}</p>
             <div class="text-muted post-createdat h6">  <i class="bi bi-clock"></i> ${updatedAtFormat(
               post.updatedAt
             )} &nbsp;&nbsp;&nbsp;<i class="bi bi-chat-left-dots"></i> ${
@@ -73,6 +79,15 @@ const displayProductsList = async () => {
     </div>
 
     `;
+
+  if (post.image) {
+    let img = document.createElement("img");
+    document.querySelector("#postContent").after(img);
+    img.setAttribute("class", "my-3");
+    img.setAttribute("src", post.image);
+    img.setAttribute("alt", "image du post");
+    img.setAttribute("style", "width:100%;");
+  }
 
   post.Comments.map((com) => {
     if (com.UserId == userId || isAdmin) {
@@ -132,13 +147,23 @@ const manageComment = async () => {
   for (let i = 0; i < submit.length; i++) {
     submit[i].addEventListener("click", function () {
       let postId = this.dataset.pid;
-      const route = "/api/posts/" + postId;
+      let route = "/api/posts/" + postId;
       console.log(route);
       let com = document.getElementById("com-content").value;
       let comObj = { content: com };
       console.log(comObj);
 
-      xhrpost(comObj, route).then(() => managePost());
+      fetch(apiUrl + route, {
+        method: "POST",
+        headers: new Headers(getheaders()),
+        body: JSON.stringify(comObj),
+      })
+        .then((res) => {
+          if (res.status == 201) {
+            managePost();
+          }
+        })
+        .catch((error) => console.log(error));
     });
   }
 

@@ -2,12 +2,18 @@ let apiUrl = "http://localhost:3000";
 
 // **********************Formatage des dates mysql**************************
 const updatedAtFormat = (str) => {
-  let date = str.split("T")[0];
-  let hour = str.split("T")[1].split(".")[0].split(":")[0];
-  let minutes = str.split("T")[1].split(".")[0].split(":")[1];
-  let formatDate = date + " " + hour + ":" + minutes;
+  let date = new Date(str);
+  let x = date.toString();
+  let jour = x.split("2021")[0].split(" ")[2];
+  let month = x.split("2021")[0].split(" ")[1];
+  let year = x.split(" ")[3];
+  let hour = x.split("GMT")[0].split(":")[0].split(" ")[4];
+  let minutes = x.split("GMT")[0].split(":")[1];
+  let formatDate = jour + " " + month + " " + year + " " + hour + ":" + minutes;
   return formatDate;
 };
+
+// Tue Mar 30 2021 16:32:20 GMT+0200 (heure d’été d’Europe centrale)
 
 // *************HEADERS*******************
 const getheaders = () => {
@@ -23,7 +29,7 @@ const getheaders = () => {
 // *****************user infos************
 var user = sessionStorage.getItem("user");
 var userId = JSON.parse(user).USERID;
-var tokenId = JSON.parse(user).TOKEN;
+var token = JSON.parse(user).TOKEN;
 var isAdmin = JSON.parse(user).ISADMIN;
 var userName = JSON.parse(user).USERNAME;
 
@@ -31,8 +37,6 @@ var userName = JSON.parse(user).USERNAME;
 function xhrpost(x, route) {
   return new Promise((resolve, reject) => {
     var xhr = new XMLHttpRequest();
-    var user = sessionStorage.getItem("user");
-    var token = JSON.parse(user).TOKEN;
 
     xhr.onreadystatechange = function () {
       if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -52,11 +56,31 @@ function xhrpost(x, route) {
   });
 }
 
+function xhrput(x, route) {
+  return new Promise((resolve, reject) => {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        if (xhr.status == 201 || xhr.status == 200) {
+          console.log("success", xhr);
+          resolve(JSON.parse(xhr.responseText));
+        } else {
+          console.log("error");
+          reject(xhr);
+        }
+      }
+    };
+    xhr.open("PUT", apiUrl + route, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", "Bearer" + " " + token);
+    xhr.send(JSON.stringify(x));
+  });
+}
+
 function xhrpostform(x, route) {
   return new Promise((resolve, reject) => {
     var xhr = new XMLHttpRequest();
-    var user = sessionStorage.getItem("user");
-    var token = JSON.parse(user).TOKEN;
 
     xhr.onreadystatechange = function () {
       if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -70,6 +94,27 @@ function xhrpostform(x, route) {
       }
     };
     xhr.open("POST", apiUrl + route, true);
+    xhr.setRequestHeader("Authorization", "Bearer" + " " + token);
+    xhr.send(x);
+  });
+}
+
+function xhrputform(x, route) {
+  return new Promise((resolve, reject) => {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        if (xhr.status == 201 || xhr.status == 200) {
+          console.log("success", xhr);
+          resolve(JSON.parse(xhr.responseText));
+        } else {
+          console.log("error");
+          reject(xhr);
+        }
+      }
+    };
+    xhr.open("PUT", apiUrl + route, true);
     xhr.setRequestHeader("Authorization", "Bearer" + " " + token);
     xhr.send(x);
   });
