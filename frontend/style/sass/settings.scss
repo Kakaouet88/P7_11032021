@@ -6,6 +6,24 @@ body {
   margin: 0 0 40px;
 }
 
+input:focus {
+  &:invalid {
+    box-shadow: 0 0 5px 1px red;
+  }
+  &:valid {
+    box-shadow: 0 0 5px 1px rgb(101, 159, 224);
+  }
+}
+
+textarea:focus {
+  &:invalid {
+    box-shadow: 0 0 5px 1px red;
+  }
+  &:valid {
+    box-shadow: 0 0 5px 1px rgb(101, 159, 224);
+  }
+}
+
 .blurBlock {
   z-index: 1000;
   position: fixed;

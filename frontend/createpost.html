@@ -63,9 +63,9 @@
         </div>
         <div class="card-body py-2">
           <label for="title">Titre : </label>
-          <input type="text" id="title" name="title" maxlength="50" placeholder="Maximum 50 caractères, caractères spéciaux interdits"></input>
+          <input required pattern="^[^<>{}~*]*$" type="text" id="title" name="title" maxlength="50" placeholder="Maximum 50 caractères, caractères spéciaux interdits"></input>
           <label class="mt-3" for="content">Contenu : </label><br>
-          <textarea class="card-text" id="content" name="content" rows="10" placeholder="Maximum 5000 caractères, caractères spéciaux interdits" maxlength="5000" size="1000" form="newpostform"></textarea>
+          <textarea required class="card-text" id="content" name="content" rows="10" placeholder="Maximum 5000 caractères, caractères spéciaux interdits" maxlength="5000" size="1000" form="newpostform"></textarea>
           <label class="mt-3" for="image">Image (facultatif) : </label><br>
           <input type="file" accept=".jpg, .jpeg, .png" id="image" name="image"></input>
   
