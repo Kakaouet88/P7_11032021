@@ -59,20 +59,17 @@ exports.modifyPost = (req, res, next) => {
         // modif objet
         const postObject = req.file
           ? {
-              ...JSON.parse(req.body.post),
+              ...req.body.post,
               image: `${req.protocol}://${req.get("host")}/images/${
                 req.file.filename
               }`,
             }
           : { ...req.body };
         Post.update(
-          { where: { id: req.params.id } },
           {
             ...postObject,
-            id: req.params.id,
-            UserId: userId,
-            comments: post.comments,
-          }
+          },
+          { where: { id: req.params.id } }
         )
           .then(() => res.status(200).json({ message: "Post modifié !" }))
           .catch((error) => res.status(400).json({ error }));
@@ -94,7 +91,7 @@ exports.deletePost = (req, res, next) => {
       if (post.UserId == req.token.userId || req.token.isadmin === true) {
         if (post.image) {
           const filename = post.image.split("/images/")[1];
-          fs.unlink(`../images/${filename}`, () => {
+          fs.unlink(`./images/${filename}`, () => {
             Post.destroy({ where: { id: post.id } })
               .then(() => res.status(200).json({ message: "Post supprimé !" }))
               .catch((error) => res.status(400).json({ error }));

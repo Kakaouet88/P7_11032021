@@ -3,14 +3,7 @@ let apiUrl = "http://localhost:3000";
 // **********************Formatage des dates mysql**************************
 const updatedAtFormat = (str) => {
   let date = new Date(str);
-  let x = date.toString();
-  let jour = x.split("2021")[0].split(" ")[2];
-  let month = x.split("2021")[0].split(" ")[1];
-  let year = x.split(" ")[3];
-  let hour = x.split("GMT")[0].split(":")[0].split(" ")[4];
-  let minutes = x.split("GMT")[0].split(":")[1];
-  let formatDate = jour + " " + month + " " + year + " " + hour + ":" + minutes;
-  return formatDate;
+  return date.toLocaleDateString() + " " + date.toLocaleTimeString();
 };
 
 // Tue Mar 30 2021 16:32:20 GMT+0200 (heure d’été d’Europe centrale)

@@ -17,9 +17,9 @@ const userCtrl = require("../controllers/user");
 const regex = require("../middleware/regex");
 
 router.get("/:id", auth, userCtrl.getOneUser);
-router.post("/signup", regex.Validation, userCtrl.signup);
-router.post("/login", regex.Validation, userCtrl.login);
-router.put("/:id", auth, regex.Validation, userCtrl.modifyUser);
+router.post("/signup", regex.authValidation, userCtrl.signup);
+router.post("/login", userCtrl.login);
+router.put("/:id", auth, regex.authValidation, userCtrl.modifyUser);
 router.delete(
   "/:id",
   auth,
