@@ -64,15 +64,15 @@ const displayProductsList = async () => {
                 <i class="bi bi-chat-left-dots"></i> Commenter
             </button>
             <div class="dropdown-menu position-absolute col-11 col-md-11 px-4 py-2">
-                <form></form>
+                <form>
                   <div class="form-group">
                     <label for="content"><i class="bi bi-chat-left-dots"></i></label>
-                    <textarea type="text" class="form-control" id="com-content" placeholder=" wow ! "></textarea>
+                    <textarea type="text" minlength="3" class="form-control" id="com-content" placeholder=" 3 caractères min. "></textarea>
                   </div>
                   <button class="btn postCom btn-com" data-pid="${
                     post.id
                   }">Commenter</button>
-                </form>
+                  </form>
               </div>
         </div>
         </div>
@@ -161,6 +161,14 @@ const manageComment = async () => {
         .then((res) => {
           if (res.status == 201) {
             managePost();
+          } else {
+            document.querySelector("#com-content").value = "";
+            para = document.createElement("p");
+            para.innerHTML = ` <i class="bi bi-exclamation-circle-fill h5"></i>&nbsp; 3 caractères min. et caractères spéciaux interdits !`;
+            document.querySelector("#com-content").value = "";
+            para.setAttribute("class", "text-danger");
+            para.classList.add("font-italic", "mt-3");
+            submit[i].parentNode.insertBefore(para, submit[i].nextSibling);
           }
         })
         .catch((error) => console.log(error));

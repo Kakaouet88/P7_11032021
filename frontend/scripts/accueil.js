@@ -62,17 +62,17 @@ const displayProductsList = async () => {
         <i class="bi bi-chat-left-dots"></i> Commenter
         </button>
         <div class="dropdown-menu position-absolute col-11 col-md-11 px-4 py-2">
-                <form></form>
-                  <div class="form-group">
-                  <label for="content"><i class="bi bi-chat-left-dots"></i></label>
-                    <textarea type="text" class="form-control" id="com-${
-                      post.id
-                    }" placeholder=" wow ! "></textarea>
-                    </div>
-                    <button class="btn postCom btn-com" data-pid="${
-                      post.id
-                    }">Commenter</button>
-                    </form>
+        <form>
+        <div class="form-group">
+        <label for="content"><i class="bi bi-chat-left-dots"></i></label>
+          <textarea type="text" minlength="3" class="form-control" id="com-${
+            post.id
+          }" placeholder=" 3 caractères min. "></textarea>
+          </div>
+          <button class="btn postCom btn-com" data-pid="${
+            post.id
+          }">Commenter</button>
+          </form>
                     </div>
                     </div>
                     </div>
@@ -113,12 +113,12 @@ const displayProductsList = async () => {
         <i class="bi bi-chat-left-dots"></i> Commenter
         </button>
         <div class="dropdown-menu position-absolute col-11 col-md-11 px-4 py-2">
-                <form></form>
+                <form>
                   <div class="form-group">
                   <label for="content"><i class="bi bi-chat-left-dots"></i></label>
-                    <textarea type="text" class="form-control" id="com-${
+                    <textarea type="text" minlength="3" class="form-control" id="com-${
                       post.id
-                    }" placeholder=" wow ! "></textarea>
+                    }" placeholder=" 3 caractères min. "></textarea>
                     </div>
                     <button class="btn postCom btn-com" data-pid="${
                       post.id
@@ -145,10 +145,8 @@ const addComment = async () => {
     submit[i].addEventListener("click", function () {
       let postId = this.dataset.pid;
       let route = "/api/posts/" + postId;
-      console.log(route);
       let com = document.querySelector("#com-" + postId).value;
       let comObj = { content: com };
-      console.log(comObj);
 
       fetch(apiUrl + route, {
         method: "POST",
@@ -159,6 +157,14 @@ const addComment = async () => {
           if (res.status == 201) {
             document.querySelector("#page-content").innerHTML = "";
             addComment();
+          } else {
+            document.querySelector("#com-" + postId).value = "";
+            para = document.createElement("p");
+            para.innerHTML = ` <i class="bi bi-exclamation-circle-fill h5"></i>&nbsp; 3 caractères min. et caractères spéciaux interdits !`;
+            document.querySelector("#com-" + postId).value = "";
+            para.setAttribute("class", "text-danger");
+            para.classList.add("font-italic", "mt-3");
+            submit[i].parentNode.insertBefore(para, submit[i].nextSibling);
           }
         })
         .catch((error) => console.log(error));

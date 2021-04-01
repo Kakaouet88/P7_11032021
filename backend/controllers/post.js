@@ -154,15 +154,19 @@ exports.deletePostComment = (req, res, next) => {
 exports.commentPost = (req, res, next) => {
   const postId = req.params.id;
 
-  const newcom = Comment.build({
-    PostId: postId,
-    UserId: req.token.userId,
-    content: req.body.content,
-  });
-  newcom
-    .save()
-    .then(() => res.status(201).json({ message: "Commentaire créé !" }))
-    .catch((error) => res.status(400).json({ error }));
+  if (req.body.content.length < 3) {
+    res.status(400).json({ error: "message trop court" });
+  } else {
+    const newcom = Comment.build({
+      PostId: postId,
+      UserId: req.token.userId,
+      content: req.body.content,
+    });
+    newcom
+      .save()
+      .then(() => res.status(201).json({ message: "Commentaire créé !" }))
+      .catch((error) => res.status(400).json({ error }));
+  }
 };
 
 exports.deleteCom = (req, res, next) => {

@@ -35,6 +35,7 @@ const displayForm = async () => {
 
   document.querySelector(".post-username").innerHTML = userName;
 
+  // ***********AFFICHAGE DE LIMAGE SELECTIONNEE + LIMITE TAILLE************
   var input = document.querySelector("input[type=file]");
 
   input.addEventListener("change", updateImageDisplay);
@@ -43,7 +44,6 @@ const displayForm = async () => {
     while (preview.firstChild) {
       preview.removeChild(preview.firstChild);
     }
-
     var curFiles = input.files;
     if (curFiles.length === 0) {
       var para = document.createElement("p");
