@@ -31,3 +31,5 @@ document.getElementById("formbtn").addEventListener("click", function () {
       .catch((error) => console.log(error));
   }
 });
+
+toggle();

@@ -42,6 +42,7 @@ const displayProfile = async () => {
         </div>
         <label class="fadeInDown second" for="password"> Mot de passe : </label>
           <input class="fadeIn second" name="profile" type="password" id="password" placeholder="********" readonly>
+          <i id="passeye"></i>
         </form>
         </div>
 
@@ -101,27 +102,45 @@ const manageProfile = async () => {
 
   //   ****************DELETE PROFILE*****************
   document.getElementById("deletepost").addEventListener("click", function () {
-    console.log("piiip");
-    fetch(apiUrl + "/api/auth/" + profileId, {
-      method: "DELETE",
-      headers: new Headers(getheaders()),
-    })
-      .then((res) => {
-        if (res.status == 200) {
-          sessionStorage.clear();
-          window.location.assign("index.html");
-        }
+    let divDelete = document.createElement("div");
+    divDelete.innerHTML = `<div class="blurBlock"><div id="confirmDelete" class="card dropshadow-sm animate__animated animate__fadeIn animate__faster" style="width: 350px; position: relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); transition: all;">
+    <h1 class="h5 text-center py-3"> <i class="bi bi-exclamation-triangle-fill h4"></i> &nbsp; Supprimer définitivement ? </h1>
+    <div class="card-footer justify-content-around d-flex py-4">
+      <button id="confirmYes" class="btn btn-com" style="width:80px"> Oui </button>
+      <button id="confirmNo" class="btn btn-secondary" style="width:80px"> Non </button>
+    </div>
+    </div></div>`;
+    document.body.append(divDelete);
+    let confirmYes = document.querySelector("#confirmYes");
+    let confirmNo = document.querySelector("#confirmNo");
+    confirmYes.addEventListener("click", function () {
+      fetch(apiUrl + "/api/auth/" + profileId, {
+        method: "DELETE",
+        headers: new Headers(getheaders()),
       })
-      .catch((error) => console.log(error));
+        .then((res) => {
+          if (res.status == 200) {
+            sessionStorage.clear();
+            window.location.assign("index.html");
+          }
+        })
+        .catch((error) => console.log(error));
+    });
+    confirmNo.addEventListener("click", function () {
+      document.body.removeChild(divDelete);
+    });
   });
-  //   ***********DECO**************
+
+  //   ***********DECONNEXION**************
+
   document.getElementById("disconnect").addEventListener("click", function () {
     sessionStorage.clear();
     window.location.assign("index.html");
   });
+
   //   *******************MODIF PROFILE***************
+
   document.getElementById("editpost").addEventListener("click", function () {
-    console.log("pipou");
     // titre page
     document.getElementById("banner").innerHTML = `
     <h1 class="h5 animate__animated animate__fadeIn col-10 mx-auto col-md-12"><span id="bannertext">Modifier les informations du profil</span></h1>
@@ -130,11 +149,13 @@ const manageProfile = async () => {
     document.getElementById("oldpass").innerHTML = `
     <label class="fadeInDown second" for="oldpassword"> Ancien mot de passe : </label>
           <input class="fadeIn" name="profile" type="password" id="oldpassword" placeholder="votre mdp actuel" readonly>
+          <i class="bi bi-eye-fill fadeIn third passToggle"></i>
     `;
     // modif placeholder password
-    document
-      .getElementById("password")
-      .setAttribute("placeholder", "votre nouveau mdp");
+    passInput = document.getElementById("password");
+    passInput.setAttribute("placeholder", "votre nouveau mdp");
+    var eye = document.getElementById("passeye");
+    eye.setAttribute("class", "bi bi-eye-fill fadeIn fourth passToggle");
     // ajoute le btn pour envoyer la requete
     document.getElementById("editmode").innerHTML = `
     <div class="d-flex align-items-center justify-content-center mt-4">
@@ -153,6 +174,8 @@ const manageProfile = async () => {
       inputs[i].removeAttribute("readonly");
     }
 
+    toggle();
+
     document
       .getElementById("savechanges")
       .addEventListener("click", function () {
@@ -168,11 +191,15 @@ const manageProfile = async () => {
             oldpassword: oldpassword.value,
             password: password.value,
           };
-          let route = "/api/auth/" + userId;
-          xhrput(userObj, route)
+          let route = apiUrl + "/api/auth/" + userId;
+          fetch(route, {
+            method: "PUT",
+            headers: new Headers(getheaders()),
+            body: JSON.stringify(userObj),
+          })
             .then((res) => {
               if (res.status == 200) {
-                window.location.reload();
+                window.location.assign("profil.html?id=" + userId);
               }
             })
             .catch((error) => console.log(error));

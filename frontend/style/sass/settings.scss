@@ -6,6 +6,16 @@ body {
   margin: 0 0 40px;
 }
 
+.blurBlock {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba($color: white, $alpha: 0.6);
+  width: 100%;
+  height: 100%;
+}
+
 html {
   font-size: 14px;
 }

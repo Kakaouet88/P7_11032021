@@ -57,13 +57,21 @@ const displayForm = async () => {
         var para = document.createElement("p");
         para.classList.add("text-muted");
         if (validFileType(curFiles[i])) {
-          para.textContent =
-            curFiles[i].name + " - " + returnFileSize(curFiles[i].size) + ".";
-          var image = document.createElement("img");
-          image.src = window.URL.createObjectURL(curFiles[i]);
+          if (input.files[0].size > 2097152) {
+            para.innerHTML = ` <i class="bi bi-exclamation-circle-fill h5"></i> &nbsp;La taille de l'image ne peut excéder 2 Mo.`;
+            input.value = "";
+            para.setAttribute("class", "text-danger");
+            para.classList.add("font-italic", "mt-3");
+            listItem.appendChild(para);
+          } else {
+            para.textContent =
+              curFiles[i].name + " - " + returnFileSize(curFiles[i].size) + ".";
+            var image = document.createElement("img");
+            image.src = window.URL.createObjectURL(curFiles[i]);
 
-          listItem.appendChild(image);
-          listItem.appendChild(para);
+            listItem.appendChild(image);
+            listItem.appendChild(para);
+          }
         } else {
           para.textContent =
             "File name " +

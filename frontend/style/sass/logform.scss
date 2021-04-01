@@ -221,6 +221,17 @@ h2.active {
   input[type="password"]:placeholder {
     color: #cccccc;
   }
+
+  & #password {
+    margin-right: -10px;
+  }
+
+  & i {
+    position: relative;
+    right: 30px;
+    z-index: 1000;
+    cursor: pointer;
+  }
 }
 
 /* ANIMATIONS */

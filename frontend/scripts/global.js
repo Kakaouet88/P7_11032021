@@ -143,6 +143,31 @@ function checkForm() {
   }
 }
 
+// ************TOGGLE PASSWORD VISIBILITY************
+function showPass(z) {
+  var x = z.previousSibling.previousSibling;
+  var y = z.previousSibling.previousSibling;
+  if (x.type === "password" || y.type === "password") {
+    x.type = "text";
+    y.type = "text";
+    z.classList.remove("bi-eye-fill");
+    z.classList.add("bi-eye-slash");
+  } else {
+    x.type = "password";
+    y.type = "password";
+    z.classList.remove("bi-eye-slash");
+    z.classList.add("bi-eye-fill");
+  }
+}
+
+function toggle() {
+  eyez = document.getElementsByClassName("passToggle");
+  for (let i = 0; i < eyez.length; i++) {
+    eyez[i].addEventListener("click", function () {
+      showPass(eyez[i]);
+    });
+  }
+}
 // **************USER PROFILE URL***************
 
 document.getElementById("header-ul").innerHTML = `

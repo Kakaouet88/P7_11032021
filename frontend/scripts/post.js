@@ -133,7 +133,7 @@ const displayProductsList = async () => {
             </div>
         `;
     document.getElementById("bannertext").innerHTML = `
-        ${post.User.username} : <br> ${post.title} <br> (mode administrateur)
+        <a href="profil.html?id=${post.UserId}">@${post.User.username}</a> :<br>${post.title} <br> (mode administrateur)
         `;
   }
 };
@@ -192,17 +192,32 @@ const managePost = async () => {
 
   //   ****************DELETE POST*****************
   document.getElementById("deletepost").addEventListener("click", function () {
-    console.log("piiip");
-    fetch(apiUrl + "/api/posts/" + postId, {
-      method: "DELETE",
-      headers: new Headers(getheaders()),
-    })
-      .then((res) => {
-        if (res.status == 200) {
-          window.location.assign("accueil.html");
-        }
+    let divDelete = document.createElement("div");
+    divDelete.innerHTML = `<div class="blurBlock"><div id="confirmDelete" class="card dropshadow-sm animate__animated animate__fadeIn animate__faster" style="width: 350px; position: relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); transition: all;">
+    <h1 class="h5 text-center py-3"> <i class="bi bi-exclamation-triangle-fill h4"></i> &nbsp; Supprimer définitivement ? </h1>
+    <div class="card-footer justify-content-around d-flex py-4">
+      <button id="confirmYes" class="btn btn-com" style="width:80px"> Oui </button>
+      <button id="confirmNo" class="btn btn-secondary" style="width:80px"> Non </button>
+    </div>
+    </div></div>`;
+    document.body.append(divDelete);
+    let confirmYes = document.querySelector("#confirmYes");
+    let confirmNo = document.querySelector("#confirmNo");
+    confirmYes.addEventListener("click", function () {
+      fetch(apiUrl + "/api/posts/" + postId, {
+        method: "DELETE",
+        headers: new Headers(getheaders()),
       })
-      .catch((error) => console.log(error));
+        .then((res) => {
+          if (res.status == 200) {
+            window.location.assign("accueil.html");
+          }
+        })
+        .catch((error) => console.log(error));
+    });
+    confirmNo.addEventListener("click", function () {
+      document.body.removeChild(divDelete);
+    });
   });
 
   document.getElementById("editpost").addEventListener("click", function () {
