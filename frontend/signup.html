@@ -61,9 +61,9 @@
     
         <!-- Login Form -->
         <form id="logform">
-          <input type="text" id="username" class="fadeIn second my-3" name="login" placeholder="nom d'utilisateur">
-          <input type="email" id="email" class="fadeIn second my-3" name="login" placeholder="email">
-          <input type="password" id="password" class="fadeIn third my-3" name="login" placeholder="mot de passe">
+          <input required pattern="^[^<>{}~*]*$" minlength="3" type="text" id="username" class="fadeIn second my-3" name="login" placeholder="nom d'utilisateur">
+          <input required pattern="^[^<>{}~*]*$" minlength="3" type="email" id="email" class="fadeIn second my-3" name="login" placeholder="email">
+          <input required pattern="^[^<>{}~*]*$" minlength="3" type="password" id="password" class="fadeIn third my-3" name="login" placeholder="mot de passe">
           <i class="bi bi-eye-fill fadeIn third passToggle"></i>
         </form>
         <button id="formbtn" class="fadeIn fourth dropshadow-sm my-4 btn logbtn btn-com">S'inscrire</button>

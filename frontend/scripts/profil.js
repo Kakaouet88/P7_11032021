@@ -31,17 +31,17 @@ const displayProfile = async () => {
         <div class="card-body p-3">
         <form id="profileform">
         <label class="fadeInDown" for="username">Nom d'utilisateur : </label>
-        <input pattern="^[^<>{}~*]*$" class="fadeIn" name="profile" type="text" id="username" placeholder="${
+        <input required pattern="^[^<>{}~*]*$" minlength="3" class="fadeIn" name="profile" type="text" id="username" placeholder="${
           profile.username
         }" readonly>
         <label class="fadeInDown first" for="email">Adresse email : </label>
-        <input pattern="^[^<>{}~*]*$" class="fadeIn first" name="profile" type="email" id="email" placeholder="${
+        <input required pattern="^[^<>{}~*]*$" minlength="3" class="fadeIn first" name="profile" type="email" id="email" placeholder="${
           profile.email
         }" readonly>
         <div id="oldpass">
         </div>
         <label class="fadeInDown second" for="password"> Mot de passe : </label>
-          <input pattern="^[^<>{}~*]*$" class="fadeIn second" name="profile" type="password" id="password" placeholder="********" readonly>
+          <input required pattern="^[^<>{}~*]*$" minlength="3" class="fadeIn second" name="profile" type="password" id="password" placeholder="********" readonly>
           <i id="passeye"></i>
         </form>
         </div>
@@ -149,7 +149,7 @@ const manageProfile = async () => {
     // ajoute champ oldpass
     document.getElementById("oldpass").innerHTML = `
     <label class="fadeInDown second" for="oldpassword"> Ancien mot de passe : </label>
-          <input required pattern="^[^<>{}~*]*$" class="fadeIn" name="profile" type="password" id="oldpassword" placeholder="votre mdp actuel" readonly>
+          <input required pattern="^[^<>{}~*]*$" minlength="3" class="fadeIn" name="profile" type="password" id="oldpassword" placeholder="votre mdp actuel" readonly>
           <i class="bi bi-eye-fill fadeIn third passToggle"></i>
     `;
     // modif placeholder password

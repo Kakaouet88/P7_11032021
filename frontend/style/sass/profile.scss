@@ -75,6 +75,15 @@
   input[type="password"]:focus {
     background-color: #fff;
     border-bottom: 2px solid lighten($color: $color-primary, $amount: 30%);
+    &:invalid {
+      box-shadow: 0 0 5px 1px red;
+    }
+    &:valid {
+      box-shadow: 0 0 5px 1px rgb(101, 159, 224);
+    }
+    &.invalid {
+      box-shadow: 0 0 5px 1px red;
+    }
   }
 
   input[type="text"]:read-only:focus,

@@ -312,6 +312,21 @@ h2.active {
   background-color: #fff;
   border-bottom: 2px solid #f1cacd;
 }
+#logform input[type=text]:focus:invalid,
+#logform input[type=email]:focus:invalid,
+#logform input[type=password]:focus:invalid {
+  box-shadow: 0 0 5px 1px red;
+}
+#logform input[type=text]:focus:valid,
+#logform input[type=email]:focus:valid,
+#logform input[type=password]:focus:valid {
+  box-shadow: 0 0 5px 1px #659fe0;
+}
+#logform input[type=text]:focus.invalid,
+#logform input[type=email]:focus.invalid,
+#logform input[type=password]:focus.invalid {
+  box-shadow: 0 0 5px 1px red;
+}
 #logform input[type=text]:placeholder,
 #logform input[type=email]:placeholder,
 #logform input[type=password]:placeholder {
@@ -656,6 +671,21 @@ a:hover,
 #profileform input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #f1cacd;
+}
+#profileform input[type=text]:focus:invalid,
+#profileform input[type=email]:focus:invalid,
+#profileform input[type=password]:focus:invalid {
+  box-shadow: 0 0 5px 1px red;
+}
+#profileform input[type=text]:focus:valid,
+#profileform input[type=email]:focus:valid,
+#profileform input[type=password]:focus:valid {
+  box-shadow: 0 0 5px 1px #659fe0;
+}
+#profileform input[type=text]:focus.invalid,
+#profileform input[type=email]:focus.invalid,
+#profileform input[type=password]:focus.invalid {
+  box-shadow: 0 0 5px 1px red;
 }
 #profileform input[type=text]:read-only:focus,
 #profileform input[type=email]:read-only:focus,
