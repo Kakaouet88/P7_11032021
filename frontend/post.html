@@ -27,13 +27,9 @@
   </head>
   <body>
 
-    <!-- <div id="confirmDelete" class="card dropshadow-sm" style="width: 300px; position: absolute;top: 50%; left: 50%; z-index: 1000; transform: translate(-50%, -50%);">
-      <h1 class="h5 text-center py-3"> <i class="bi bi-exclamation-triangle-fill h4"></i> &nbsp; Supprimer définitivement ? </h1>
-      <div class="card-footer justify-content-around d-flex py-4">
-        <button id="confirmYes" class="btn btn-com" style="width:80px"> Oui </button>
-        <button id="confirmNo" class="btn btn-secondary" style="width:80px"> Non </button>
-      </div>
-    </div> -->
+    <div id="loader">
+      <div class="rubik-loader"></div>
+    </div>
 
 <!-- HEADER -->
 <div id="top"></div>
@@ -59,61 +55,9 @@
   <div class="container" id="page-content">
 
     <div id="adminbuttons" class="animate__animated animate__fadeIn animate__slow">
-      <!-- BOUTONS SUPPRIMER ET MODFIIER SI USERID = TOKEN -->
-      <!-- <div class="d-flex align-items-center justify-content-center mt-3">
-        <button aria-label="editer le post" class="btn btn-com editpost mr-3"> <i class="bi bi-pencil"></i> Modifier </button>
-        <button aria-label="supprimer le post" class="btn btn-com deletepost ml-3"> <i class="bi bi-trash"></i> Supprimer </button>
-      </div> -->
-      <!-- BOUTONS SUPPRIMER ET MODFIIER SI USERID = TOKEN -->
     </div>
-   
 
     <div id="post">
-      
-    <!-- <div class="card gedf-card col-md-8 mx-auto mt-3 dropshadow-sm animate__animated animate__fadeInUp">
-      <div class="card-header d-flex align-items-center pl-3 p-0">
-                  <div class="mr-2 pb-2">
-                      <i class="bi bi-person-circle post-pic"></i>
-                  </div>
-                  <div class="ml-2">
-                      <div class="post-username m-0">username </div>
-                  </div>
-      </div>
-      <div class="card-body py-2">
-        <p class="font-weight-bold">Niania pas content</p>
-          <p class="card-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
-              sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste voluptates.
-          </p>
-          <div class="text-muted post-createdat h6">  <i class="bi bi-clock"></i> created at &nbsp;&nbsp;&nbsp;<i class="bi bi-chat-left-dots"></i> nbr coms</div>
-      </div>
-      <div id="post-com" class="m-0 p-0">
-
-          
-          <hr class="p-0 m-0">
-            <div class="card-com card-body animate__animated animate__fadeInLeft">
-                <p id="com-username"><a href="./profil.html">username</a></p>
-                <div class="px-3 py-2 m-0 com-content">wow super post</div>
-            </div>
-
-      </div>
-
-      <div class="card-footer dropdown">
-          <button class="btn dropdown-toggle" type="button" id="dropdownmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="bi bi-chat-left-dots"></i> Commenter
-          </button>
-          <div class="dropdown-menu col-11 col-md-11 px-4 py-2">
-              <form></form>
-                <div class="form-group">
-                  <label for="content"><i class="bi bi-chat-left-dots"></i></label>
-                  <textarea type="text" class="form-control" id="content" placeholder=" wow ! "></textarea>
-                </div>
-                <button type="submit" class="btn btn-com">Commenter</button>
-              </form>
-            </div>
-      </div>
-  </div> -->
-
   </div>
 
   </div>
@@ -131,15 +75,8 @@
   </div>
 </footer>
   <!-- FIN FOOTER -->
-
-
-
-
-
-
-
     
-    <!-- BOOTSTRAP SCRIPTS-->
+    <!-- SCRIPTS-->
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

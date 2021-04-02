@@ -28,11 +28,10 @@ document.getElementById("formbtn").addEventListener("click", function () {
           window.location.assign("accueil.html");
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
         email.value = "";
         password.value = "";
-        alert("Identifiant ou Mot de passe incorrect");
+        alert(err.responseText);
       });
   }
 });

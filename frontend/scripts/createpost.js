@@ -16,6 +16,7 @@ const fetchPost = async () => {
       alert(error);
     });
   console.log(post);
+  document.getElementById("loader").style.display = "none";
   return post;
 };
 

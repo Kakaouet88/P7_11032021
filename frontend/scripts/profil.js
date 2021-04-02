@@ -10,6 +10,7 @@ const fetchProfile = async () => {
     .then((res) => res.json())
     .catch((error) => console.log(error));
   console.log(profile);
+  document.getElementById("loader").style.display = "none";
   return profile;
 };
 

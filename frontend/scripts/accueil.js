@@ -11,6 +11,7 @@ const fetchProducts = async () => {
       alert(error);
     });
   console.log(posts);
+  document.getElementById("loader").style.display = "none";
   return posts;
 };
 

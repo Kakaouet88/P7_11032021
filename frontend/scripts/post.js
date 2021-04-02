@@ -14,6 +14,7 @@ const fetchProducts = async () => {
     .catch((error) => {
       alert(error);
     });
+  document.getElementById("loader").style.display = "none";
   return post;
 };
 
