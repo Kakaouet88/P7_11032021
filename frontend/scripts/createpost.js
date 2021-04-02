@@ -74,9 +74,9 @@ const displayForm = async () => {
           }
         } else {
           para.textContent =
-            "File name " +
+            "Fichier " +
             curFiles[i].name +
-            ": Not a valid file type. Update your selection.";
+            ": Type de fichier non autorisé, modifiez votre sélection";
           listItem.appendChild(para);
         }
 
@@ -148,3 +148,51 @@ const formAction = async () => {
 };
 
 formAction();
+
+// **********VALIDATION TEXTAREA****************
+var regexContent = new RegExp("^[^<>{}~*]*$");
+content.addEventListener("input", () => {
+  var textContent = content.value;
+  var match = regexContent.test(textContent);
+  if (!match) {
+    content.classList.add("invalid");
+    para = document.createElement("p");
+    para.innerHTML = ` <i class="bi bi-exclamation-circle-fill h5"></i>&nbsp; 3 caractères min. et caractères spéciaux interdits !`;
+    para.setAttribute("class", "text-danger");
+    para.setAttribute("id", "PARA");
+    para.classList.add("font-italic", "mt-3");
+    var PARA = document.getElementById("PARA");
+    if (PARA) PARA.remove();
+    content.parentNode.insertBefore(para, content.nextSibling);
+  } else {
+    content.classList.remove("invalid");
+    var PARA = document.getElementById("PARA");
+    if (PARA) PARA.remove();
+  }
+});
+// **********VALIDATION TITRE****************
+var regexContent = new RegExp("^[^<>{}~*]*$");
+title.addEventListener("input", () => {
+  var textContent = title.value;
+  var match = regexContent.test(textContent);
+  if (!match) {
+    title.classList.add("invalid");
+    para = document.createElement("p");
+    para.innerHTML = ` <i class="bi bi-exclamation-circle-fill h5"></i>&nbsp; 3 caractères min. et caractères spéciaux interdits !`;
+    para.setAttribute("class", "text-danger");
+    para.setAttribute("id", "PARA");
+    para.classList.add("font-italic", "mt-3");
+    var PARA = document.getElementById("PARA");
+
+    if (PARA) {
+      PARA.remove();
+    }
+    title.parentNode.insertBefore(para, title.nextSibling);
+  } else {
+    title.classList.remove("invalid");
+    var PARA = document.getElementById("PARA");
+    if (PARA) {
+      PARA.remove();
+    }
+  }
+});

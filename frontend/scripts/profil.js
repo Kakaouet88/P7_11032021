@@ -31,17 +31,17 @@ const displayProfile = async () => {
         <div class="card-body p-3">
         <form id="profileform">
         <label class="fadeInDown" for="username">Nom d'utilisateur : </label>
-        <input class="fadeIn" name="profile" type="text" id="username" placeholder="${
+        <input pattern="^[^<>{}~*]*$" class="fadeIn" name="profile" type="text" id="username" placeholder="${
           profile.username
         }" readonly>
         <label class="fadeInDown first" for="email">Adresse email : </label>
-        <input class="fadeIn first" name="profile" type="email" id="email" placeholder="${
+        <input pattern="^[^<>{}~*]*$" class="fadeIn first" name="profile" type="email" id="email" placeholder="${
           profile.email
         }" readonly>
         <div id="oldpass">
         </div>
         <label class="fadeInDown second" for="password"> Mot de passe : </label>
-          <input class="fadeIn second" name="profile" type="password" id="password" placeholder="********" readonly>
+          <input pattern="^[^<>{}~*]*$" class="fadeIn second" name="profile" type="password" id="password" placeholder="********" readonly>
           <i id="passeye"></i>
         </form>
         </div>
@@ -101,6 +101,7 @@ const manageProfile = async () => {
   await displayProfile();
 
   //   ****************DELETE PROFILE*****************
+
   document.getElementById("deletepost").addEventListener("click", function () {
     let divDelete = document.createElement("div");
     divDelete.innerHTML = `<div class="blurBlock"><div id="confirmDelete" class="card dropshadow-sm animate__animated animate__fadeIn animate__faster" style="width: 350px; position: relative; z-index: 1000; top:50%; left: 50%; transform: translate(-50%, -50%); transition: all;">
@@ -148,7 +149,7 @@ const manageProfile = async () => {
     // ajoute champ oldpass
     document.getElementById("oldpass").innerHTML = `
     <label class="fadeInDown second" for="oldpassword"> Ancien mot de passe : </label>
-          <input class="fadeIn" name="profile" type="password" id="oldpassword" placeholder="votre mdp actuel" readonly>
+          <input required pattern="^[^<>{}~*]*$" class="fadeIn" name="profile" type="password" id="oldpassword" placeholder="votre mdp actuel" readonly>
           <i class="bi bi-eye-fill fadeIn third passToggle"></i>
     `;
     // modif placeholder password

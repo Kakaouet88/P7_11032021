@@ -14,8 +14,69 @@ const fetchProducts = async () => {
     .catch((error) => {
       alert(error);
     });
-  console.log(post);
   return post;
+};
+
+const displayComs = async () => {
+  await fetchProducts();
+  document.querySelector("#post-com").innerHTML = "";
+  document.querySelector(
+    "#createdAt_coms"
+  ).innerHTML = `  <i class="bi bi-clock"></i> ${updatedAtFormat(
+    post.updatedAt
+  )} &nbsp;&nbsp;&nbsp;<i class="bi bi-chat-left-dots"></i> ${
+    post.Comments.length
+  } `;
+
+  post.Comments.map((com) => {
+    if (com.UserId == userId || isAdmin) {
+      document.querySelector("#post-com").innerHTML += `
+            <hr class="p-0 m-0">
+            <div class="card-com card-body animate__animated animate__fadeInLeft">
+                <p id="com-username"><a href="./profil.html?id=${com.UserId}">${
+        com.User.username
+      }</a><span class="ml-2 text-muted post-createdat"> ${updatedAtFormat(
+        com.createdAt
+      )}</span></p>
+                <div class="px-3 py-2 m-0 com-content">${
+                  com.content
+                }<i data-cid="${
+        com.id
+      }" class="bi bi-trash removeCom"></i></div>
+            </div>
+            `;
+    } else {
+      document.querySelector("#post-com").innerHTML += `
+            <hr class="p-0 m-0">
+            <div class="card-com card-body animate__animated animate__fadeInLeft">
+                <p id="com-username"><a href="./profil.html?id=${com.UserId}">${
+        com.User.username
+      }</a><span class="ml-2 text-muted post-createdat"> ${updatedAtFormat(
+        com.createdAt
+      )}</span></p>
+                <div class="px-3 py-2 m-0 com-content">${com.content}</div>
+            </div>
+            `;
+    }
+  }).join("");
+
+  // *************REMOVE COM***************
+  let removeCom = document.getElementsByClassName("removeCom");
+  for (let i = 0; i < removeCom.length; i++) {
+    removeCom[i].addEventListener("click", function () {
+      let comId = this.dataset.cid;
+      fetch(apiUrl + "/api/posts/com/" + comId, {
+        method: "DELETE",
+        headers: new Headers(getheaders()),
+      })
+        .then((res) => {
+          if (res.status == 200) {
+            displayComs();
+          }
+        })
+        .catch((error) => console.log(error));
+    });
+  }
 };
 
 const displayProductsList = async () => {
@@ -48,7 +109,7 @@ const displayProductsList = async () => {
         <div class="card-body py-2">
             <p class="font-weight-bold">${post.title}</p>
             <p class="card-text" id="postContent">${post.content}</p>
-            <div class="text-muted post-createdat h6">  <i class="bi bi-clock"></i> ${updatedAtFormat(
+            <div class="text-muted post-createdat h6" id="createdAt_coms">  <i class="bi bi-clock"></i> ${updatedAtFormat(
               post.updatedAt
             )} &nbsp;&nbsp;&nbsp;<i class="bi bi-chat-left-dots"></i> ${
     post.Comments.length
@@ -67,12 +128,12 @@ const displayProductsList = async () => {
                 <form>
                   <div class="form-group">
                     <label for="content"><i class="bi bi-chat-left-dots"></i></label>
-                    <textarea type="text" minlength="3" class="form-control" id="com-content" placeholder=" 3 caractères min. "></textarea>
+                    <textarea type="text" minlength="3" class="form-control comTextArea" id="com-content" placeholder=" 3 caractères min. "></textarea>
                   </div>
+                  </form>
                   <button class="btn postCom btn-com" data-pid="${
                     post.id
                   }">Commenter</button>
-                  </form>
               </div>
         </div>
         </div>
@@ -88,36 +149,6 @@ const displayProductsList = async () => {
     img.setAttribute("alt", "image du post");
     img.setAttribute("style", "width:100%;");
   }
-
-  post.Comments.map((com) => {
-    if (com.UserId == userId || isAdmin) {
-      document.querySelector("#post-com").innerHTML += `
-          <hr class="p-0 m-0">
-          <div class="card-com card-body animate__animated animate__fadeInLeft">
-              <p id="com-username"><a href="./profil.html?id=${com.UserId}">${
-        com.User.username
-      }</a><span class="ml-2 text-muted post-createdat"> ${updatedAtFormat(
-        com.createdAt
-      )}</span></p>
-              <div class="px-3 py-2 m-0 com-content">${
-                com.content
-              }<i data-cid="${com.id}" class="bi bi-trash removeCom"></i></div>
-          </div>
-          `;
-    } else {
-      document.querySelector("#post-com").innerHTML += `
-          <hr class="p-0 m-0">
-          <div class="card-com card-body animate__animated animate__fadeInLeft">
-              <p id="com-username"><a href="./profil.html?id=${com.UserId}">${
-        com.User.username
-      }</a><span class="ml-2 text-muted post-createdat"> ${updatedAtFormat(
-        com.createdAt
-      )}</span></p>
-              <div class="px-3 py-2 m-0 com-content">${com.content}</div>
-          </div>
-          `;
-    }
-  }).join("");
 
   if (post.UserId == userId) {
     document.getElementById("adminbuttons").innerHTML = `
@@ -136,11 +167,34 @@ const displayProductsList = async () => {
         <a href="profil.html?id=${post.UserId}">@${post.User.username}</a> :<br>${post.title} <br> (mode administrateur)
         `;
   }
+
+  // **********VALIDATION TEXTAREA****************
+  var regexContent = new RegExp("^[^<>{}~*]*$");
+  var comText = document.getElementsByClassName("comTextArea");
+  for (let i = 0; i < comText.length; i++) {
+    comText[i].addEventListener("input", () => {
+      var textContent = comText[i].value;
+      var match = regexContent.test(textContent);
+      if (!match) {
+        comText[i].classList.add("invalid");
+        textContent = "";
+        para = document.createElement("p");
+        para.innerHTML = ` <i class="bi bi-exclamation-circle-fill h5"></i>&nbsp; 3 caractères min. et caractères spéciaux interdits !`;
+        para.setAttribute("class", "text-danger");
+        para.classList.add("font-italic", "mt-3");
+        if (comText[i].nextSibling) comText[i].nextSibling.remove();
+        comText[i].parentNode.insertBefore(para, comText[i].nextSibling);
+      } else {
+        if (comText[i].nextSibling) comText[i].nextSibling.remove();
+        comText[i].classList.remove("invalid");
+      }
+    });
+  }
 };
 
 // ********** supprimer et poster coms********
 const manageComment = async () => {
-  await displayProductsList();
+  await displayComs();
 
   //   ****************ADD COM************
   let submit = document.getElementsByClassName("postCom");
@@ -148,11 +202,8 @@ const manageComment = async () => {
     submit[i].addEventListener("click", function () {
       let postId = this.dataset.pid;
       let route = "/api/posts/" + postId;
-      console.log(route);
       let com = document.getElementById("com-content").value;
       let comObj = { content: com };
-      console.log(comObj);
-
       fetch(apiUrl + route, {
         method: "POST",
         headers: new Headers(getheaders()),
@@ -160,34 +211,9 @@ const manageComment = async () => {
       })
         .then((res) => {
           if (res.status == 201) {
-            managePost();
-          } else {
-            document.querySelector("#com-content").value = "";
-            para = document.createElement("p");
-            para.innerHTML = ` <i class="bi bi-exclamation-circle-fill h5"></i>&nbsp; 3 caractères min. et caractères spéciaux interdits !`;
-            document.querySelector("#com-content").value = "";
-            para.setAttribute("class", "text-danger");
-            para.classList.add("font-italic", "mt-3");
-            submit[i].parentNode.insertBefore(para, submit[i].nextSibling);
-          }
-        })
-        .catch((error) => console.log(error));
-    });
-  }
-
-  // *************REMOVE COM***************
-  let removeCom = document.getElementsByClassName("removeCom");
-  for (let i = 0; i < removeCom.length; i++) {
-    removeCom[i].addEventListener("click", function () {
-      let comId = this.dataset.cid;
-      console.log("piiip");
-      fetch(apiUrl + "/api/posts/com/" + comId, {
-        method: "DELETE",
-        headers: new Headers(getheaders()),
-      })
-        .then((res) => {
-          if (res.status == 200) {
-            managePost();
+            comObj = {};
+            document.getElementById("com-content").value = "";
+            displayComs();
           }
         })
         .catch((error) => console.log(error));
@@ -196,7 +222,7 @@ const manageComment = async () => {
 };
 
 const managePost = async () => {
-  await manageComment();
+  await displayProductsList();
 
   //   ****************DELETE POST*****************
   document.getElementById("deletepost").addEventListener("click", function () {
@@ -229,9 +255,9 @@ const managePost = async () => {
   });
 
   document.getElementById("editpost").addEventListener("click", function () {
-    console.log("bipbip");
     window.location.assign("createpost.html?id=" + postId);
   });
 };
 
 managePost();
+manageComment();

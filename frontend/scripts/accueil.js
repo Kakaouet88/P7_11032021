@@ -65,7 +65,7 @@ const displayProductsList = async () => {
         <form>
         <div class="form-group">
         <label for="content"><i class="bi bi-chat-left-dots"></i></label>
-          <textarea type="text" minlength="3" class="form-control" id="com-${
+          <textarea type="text" minlength="3" class="form-control comTextArea" id="com-${
             post.id
           }" placeholder=" 3 caractères min. "></textarea>
           </div>
@@ -116,20 +116,42 @@ const displayProductsList = async () => {
                 <form>
                   <div class="form-group">
                   <label for="content"><i class="bi bi-chat-left-dots"></i></label>
-                    <textarea type="text" minlength="3" class="form-control" id="com-${
+                    <textarea type="text" minlength="3" class="form-control comTextArea" id="com-${
                       post.id
                     }" placeholder=" 3 caractères min. "></textarea>
                     </div>
+                    </form>
                     <button class="btn postCom btn-com" data-pid="${
                       post.id
                     }">Commenter</button>
-                    </form>
                     </div>
                     </div>
                     </div>
                     </div>
                     
                     `;
+      }
+
+      // **********VALIDATION TEXTAREA****************
+      var regexContent = new RegExp("^[^<>{}~*]*$");
+      var comText = document.getElementsByClassName("comTextArea");
+      for (let i = 0; i < comText.length; i++) {
+        comText[i].addEventListener("input", () => {
+          var textContent = comText[i].value;
+          var match = regexContent.test(textContent);
+          if (!match) {
+            comText[i].classList.add("invalid");
+            para = document.createElement("p");
+            para.innerHTML = ` <i class="bi bi-exclamation-circle-fill h5"></i>&nbsp; 3 caractères min. et caractères spéciaux interdits !`;
+            para.setAttribute("class", "text-danger");
+            para.classList.add("font-italic", "mt-3");
+            if (comText[i].nextSibling) comText[i].nextSibling.remove();
+            comText[i].parentNode.insertBefore(para, comText[i].nextSibling);
+          } else {
+            if (comText[i].nextSibling) comText[i].nextSibling.remove();
+            comText[i].classList.remove("invalid");
+          }
+        });
       }
     })
     .join("");
@@ -161,7 +183,6 @@ const addComment = async () => {
             document.querySelector("#com-" + postId).value = "";
             para = document.createElement("p");
             para.innerHTML = ` <i class="bi bi-exclamation-circle-fill h5"></i>&nbsp; 3 caractères min. et caractères spéciaux interdits !`;
-            document.querySelector("#com-" + postId).value = "";
             para.setAttribute("class", "text-danger");
             para.classList.add("font-italic", "mt-3");
             submit[i].parentNode.insertBefore(para, submit[i].nextSibling);

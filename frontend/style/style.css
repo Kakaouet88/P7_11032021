@@ -6,11 +6,14 @@ body {
   margin: 0 0 40px;
 }
 
-input:focus:invalid {
+input[type=text]:focus:invalid {
   box-shadow: 0 0 5px 1px red;
 }
-input:focus:valid {
+input[type=text]:focus:valid {
   box-shadow: 0 0 5px 1px #659fe0;
+}
+input[type=text]:focus.invalid {
+  box-shadow: 0 0 5px 1px red;
 }
 
 textarea:focus:invalid {
@@ -18,6 +21,9 @@ textarea:focus:invalid {
 }
 textarea:focus:valid {
   box-shadow: 0 0 5px 1px #659fe0;
+}
+textarea:focus.invalid {
+  box-shadow: 0 0 5px 1px red;
 }
 
 .blurBlock {
