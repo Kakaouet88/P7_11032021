@@ -16,7 +16,11 @@ document.getElementById("formbtn").addEventListener("click", function () {
           window.location.assign("index.html");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        alert("Adresse email déja associée à un compte");
+        email.value = "";
+        console.log(error);
+      });
   }
 });
 

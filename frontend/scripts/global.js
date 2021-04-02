@@ -26,51 +26,7 @@ var token = JSON.parse(user).TOKEN;
 var isAdmin = JSON.parse(user).ISADMIN;
 var userName = JSON.parse(user).USERNAME;
 
-//  *********************requete POST****************
-function xhrpost(x, route) {
-  return new Promise((resolve, reject) => {
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState == XMLHttpRequest.DONE) {
-        if (xhr.status == 201 || xhr.status == 200) {
-          console.log("success", xhr);
-          resolve(JSON.parse(xhr.responseText));
-        } else {
-          console.log("error");
-          reject(xhr);
-        }
-      }
-    };
-    xhr.open("POST", apiUrl + route, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("Authorization", "Bearer" + " " + token);
-    xhr.send(JSON.stringify(x));
-  });
-}
-
-function xhrput(x, route) {
-  return new Promise((resolve, reject) => {
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState == XMLHttpRequest.DONE) {
-        if (xhr.status == 201 || xhr.status == 200) {
-          console.log("success", xhr);
-          resolve(JSON.parse(xhr.responseText));
-        } else {
-          console.log("error");
-          reject(xhr);
-        }
-      }
-    };
-    xhr.open("PUT", apiUrl + route, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("Authorization", "Bearer" + " " + token);
-    xhr.send(JSON.stringify(x));
-  });
-}
-
+//  *********************REQ XHR****************
 function xhrpostform(x, route) {
   return new Promise((resolve, reject) => {
     var xhr = new XMLHttpRequest();
