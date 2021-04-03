@@ -7,6 +7,7 @@ const preview = document.querySelector(".preview");
 
 var post;
 const fetchPost = async () => {
+  document.getElementById("loader").style.display = "block";
   post = await fetch(apiUrl + "/api/posts/" + editmode, {
     method: "GET",
     headers: new Headers(getheaders()),
