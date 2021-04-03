@@ -15,7 +15,7 @@ TOKEN_KEY="*clé de chiffrement pour JsonWebToken*"
 #### Installer les dépendences depuis ```/backend```, puis exécuter ```nodemon serve```.
 Le backend doit écouter sur le port 3000.
 
-#### Lancer ensuite le frontend avec Live Server.
+#### Lancer ensuite n'importe quelle page html du frontend avec Live Server.
 
 :metal:
 
