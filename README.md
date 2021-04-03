@@ -12,7 +12,7 @@ TOKEN_KEY="*clé de chiffrement pour JsonWebToken*"
 >possibilité de générer une clé ici https://mkjwk.org/
 
 
-#### Installer les dépendences depuis ```/backend```, puis exécuter ```nodemon serve```.
+#### Installer les dépendences depuis ```/backend``` avec ```npm install```, puis exécuter ```nodemon serve```.
 Le backend doit écouter sur le port 3000.
 
 #### Lancer ensuite n'importe quelle page html du frontend avec Live Server.
