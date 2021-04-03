@@ -1,7 +1,7 @@
 ## P7_11032021
-###Groupomania
+### Groupomania
 
-####Le backend nécessite de créer une base de données mySQL et un ```dotenv``` contenant les informations suivantes : 
+#### Le backend nécessite de créer une base de données mySQL et un ```dotenv``` contenant les informations suivantes : 
 
 ```
 DB_NAME="*nom de la base de données*"
@@ -13,9 +13,9 @@ TOKEN_KEY="*clé de chiffrement pour JsonWebToken*"
 >possibilité de générer une clé ici https://mkjwk.org/
 
 
-####Installer les dépendences depuis ```/backend```, puis exécuter ```nodemon serve```.
+#### Installer les dépendences depuis ```/backend```, puis exécuter ```nodemon serve```.
 Le backend doit écouter sur le port 3000.
 
-####Lancer ensuite le frontend avec Live Server.
+#### Lancer ensuite le frontend avec Live Server.
 
 :metal:
