@@ -22,5 +22,7 @@ Le backend doit écouter sur le port 3000.
 Versions utilisées :
 
 >*NODE : 15.0.0*
+>
 >*NPM : 7.5.3*
+>
 >*MYSQL : 8.0*
