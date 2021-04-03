@@ -19,10 +19,10 @@ Le backend doit écouter sur le port 3000.
 
 :metal:
 
-Versions utilisées :
-
->*NODE : 15.0.0*
+>Versions utilisées :
 >
->*NPM : 7.5.3*
+>*node : 15.0.0*
 >
->*MYSQL : 8.0*
+>*npm : 7.5.3*
+>
+>*mysql : 8.0*
