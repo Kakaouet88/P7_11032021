@@ -1,5 +1,5 @@
-## P7_11032021
-### Groupomania
+### P7_11032021
+# Groupomania
 
 #### Le backend nécessite de créer une base de données mySQL et un ```dotenv``` contenant les informations suivantes : 
 
