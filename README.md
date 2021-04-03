@@ -8,7 +8,6 @@ DB_NAME="*nom de la base de données*"
 DB_USER="*utilisateur de la base de données*"
 DB_PASS="*mot de passe de l'utilisateur*"
 TOKEN_KEY="*clé de chiffrement pour JsonWebToken*"
-
 ```
 >possibilité de générer une clé ici https://mkjwk.org/
 
