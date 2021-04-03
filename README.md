@@ -18,3 +18,9 @@ Le backend doit écouter sur le port 3000.
 #### Lancer ensuite le frontend avec Live Server.
 
 :metal:
+
+Versions utilisées :
+
+*NODE : 15.0.0*
+*NPM : 7.5.3*
+*MYSQL : 8.0*
