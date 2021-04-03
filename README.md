@@ -21,7 +21,7 @@ Le backend doit écouter sur le port 3000.
 
 >Versions utilisées :
 >
->*node : 15.0.0*
->*npm : 7.5.3*
->*mysql : 8.0*
+>*node : 15.0.0* | 
+>*npm : 7.5.3* | 
+>*mysql : 8.0* | 
 >sequelize : v6
