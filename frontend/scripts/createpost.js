@@ -129,20 +129,16 @@ const formAction = async () => {
       // *****************MODE CREA****************
       let route = "/api/posts";
       xhrpostform(postObj, route)
-        .then((res) => {
-          if ((res.status = 201)) {
-            window.location.assign("accueil.html");
-          }
+        .then(() => {
+          window.location.assign("accueil.html");
         })
         .catch((error) => console.log(error));
     } else {
       // ********************MODE EDIT********************
       let route = "/api/posts/" + editmode;
       xhrputform(postObj, route)
-        .then((res) => {
-          if ((res.status = 201)) {
-            window.location.assign("post.html?id=" + editmode);
-          }
+        .then(() => {
+          window.location.assign("post.html?id=" + editmode);
         })
         .catch((error) => console.log(error));
     }
