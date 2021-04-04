@@ -3,7 +3,7 @@
 
 Clonez le repo.
 
-#### Le backend nécessite de créer une base de données mySQL et un ```dotenv``` contenant les informations suivantes : 
+#### Le backend nécessite de créer une base de données mySQL et un ```dotenv``` dans le dossier ```/backend``` contenant les informations suivantes : 
 
 ```
 DB_NAME="*nom de la base de données*"
