@@ -1,0 +1,86 @@
+Date : 2021-04-03 13:33:23
+Directory : c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania
+Total : 47 files,  9692 codes, 166 comments, 398 blanks, all 10256 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          4 |      6,842 |          0 |          4 |      6,846 |
+| JavaScript |         21 |      1,541 |         53 |        185 |      1,779 |
+| SCSS       |          9 |        792 |          9 |        102 |        903 |
+| HTML       |          6 |        480 |        103 |        105 |        688 |
+| XML        |          6 |         36 |          1 |          1 |         38 |
+| CSS        |          1 |          1 |          0 |          1 |          2 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                       | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                          |         47 |      9,692 |        166 |        398 |     10,256 |
+| backend                                                                                                    |         15 |      7,395 |         17 |         78 |      7,490 |
+| backend\controllers                                                                                        |          2 |        347 |         15 |         20 |        382 |
+| backend\middleware                                                                                         |          4 |         68 |          2 |         14 |         84 |
+| backend\models                                                                                             |          3 |         65 |          0 |         17 |         82 |
+| backend\routes                                                                                             |          2 |         47 |          0 |         10 |         57 |
+| frontend                                                                                                   |         32 |      2,297 |        149 |        320 |      2,766 |
+| frontend\scripts                                                                                           |          8 |        946 |         36 |        109 |      1,091 |
+| frontend\style                                                                                             |         16 |        829 |         10 |        104 |        943 |
+| frontend\style\images                                                                                      |          6 |         36 |          1 |          1 |         38 |
+| frontend\style\sass                                                                                        |          8 |        784 |          9 |        101 |        894 |
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                   | language   | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\app.js                                            | JavaScript |         26 |          0 |          8 |         34 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\controllers\post.js                               | JavaScript |        183 |          4 |         10 |        197 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\controllers\user.js                               | JavaScript |        164 |         11 |         10 |        185 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\middleware\auth.js                                | JavaScript |         10 |          1 |          3 |         14 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\middleware\multer-config.js                       | JavaScript |         18 |          0 |          4 |         22 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\middleware\regex.js                               | JavaScript |         28 |          1 |          3 |         32 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\middleware\sequelize.js                           | JavaScript |         12 |          0 |          4 |         16 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\models\comment.js                                 | JavaScript |         14 |          0 |          6 |         20 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\models\post.js                                    | JavaScript |         23 |          0 |          6 |         29 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\models\user.js                                    | JavaScript |         28 |          0 |          5 |         33 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\package-lock.json                                 | JSON       |      6,621 |          0 |          1 |      6,622 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\package.json                                      | JSON       |        179 |          0 |          1 |        180 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\routes\post.js                                    | JavaScript |         20 |          0 |          5 |         25 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\routes\user.js                                    | JavaScript |         27 |          0 |          5 |         32 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\backend\server.js                                         | JavaScript |         42 |          0 |          7 |         49 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\accueil.html                                     | HTML       |         72 |         10 |         11 |         93 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\createpost.html                                  | HTML       |         97 |         10 |         24 |        131 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\index.html                                       | HTML       |         81 |         13 |         23 |        117 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\package-lock.json                                | JSON       |         27 |          0 |          1 |         28 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\package.json                                     | JSON       |         15 |          0 |          1 |         16 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\post.html                                        | HTML       |         76 |         10 |         14 |        100 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\profil.html                                      | HTML       |         72 |         48 |         20 |        140 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\scripts\accueil.js                               | JavaScript |        174 |          5 |         19 |        198 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\scripts\createpost.js                            | JavaScript |        176 |          6 |         19 |        201 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\scripts\global.js                                | JavaScript |        110 |          8 |         15 |        133 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\scripts\login.js                                 | JavaScript |         36 |          0 |          4 |         40 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\scripts\post.js                                  | JavaScript |        236 |          7 |         22 |        265 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\scripts\profil.js                                | JavaScript |        183 |          9 |         24 |        216 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\scripts\protego.js                               | JavaScript |          6 |          1 |          3 |         10 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\scripts\signup.js                                | JavaScript |         25 |          0 |          3 |         28 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\signup.html                                      | HTML       |         82 |         12 |         13 |        107 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\images\groupomania_social.svg              | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\images\icon-above-font.svg                 | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\images\icon-left-font-monochrome-black.svg | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\images\icon-left-font-monochrome-white.svg | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\images\icon-left-font.svg                  | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\images\icon.svg                            | XML        |         31 |          1 |          1 |         33 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\main.scss                                  | SCSS       |          8 |          0 |          1 |          9 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\sass\accueil.scss                          | SCSS       |         70 |          0 |         11 |         81 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\sass\createpost.scss                       | SCSS       |         85 |          0 |          7 |         92 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\sass\headernav.scss                        | SCSS       |         32 |          0 |          3 |         35 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\sass\logform.scss                          | SCSS       |        341 |          9 |         46 |        396 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\sass\post.scss                             | SCSS       |         16 |          0 |          2 |         18 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\sass\profile.scss                          | SCSS       |        117 |          0 |         12 |        129 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\sass\settings.scss                         | SCSS       |        122 |          0 |         19 |        141 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\sass\variables.scss                        | SCSS       |          1 |          0 |          1 |          2 |
+| c:\Users\Daem0\Documents\Cours_OC\P7\Groupomania\frontend\style\style.css                                  | CSS        |          1 |          0 |          1 |          2 |
+| Total                                                                                                      |            |      9,692 |        166 |        398 |     10,256 |
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
